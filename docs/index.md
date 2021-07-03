@@ -1,64 +1,126 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js" integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
-<script src="src/multiselect-bs4.js" defer="defer"></script>
-</head>
-<body>
+# Documentation
 
+A multiselect picker for Bootstrap 4.
+optgroups are support.
 
-<pre><code>
-jQuery('#my-multiselect').multiselect(options);
-</code></pre>
+---
 
-Example:
+## Installation
 
+### Dependencies
+- [jQuery](https://jquery.com/)
+- [bootstrap](https://getbootstrap.com/) v4
+- [fontawesome](https://fontawesome.com/) v5
 
-<h2>Options</h3>
+```html
+<link rel="stylesheet" href="/path/to/bootstrap.css" />
+<script src="/path/to/jquery.js"></script>
+<script src="/path/to/bootstrap.js"></script>
+<script src="/path/to/fontawesome.js"></script>
+<script src="/path/to/multiselect-bs4.js"></script>
+```
 
-<dl>
-<dt>collapseOptGroupsByDefault</dt>
-<dd>
+### Usage
 
+```javascript
+<label for="color">Color:</label>
+<select id="color" class="form-control" name="state" multiple="multiple">
+<option value="1">Red</option>
+<option value="2">Orange</option>
+<option value="3">Yellow</option>
+<option value="4">Green</option>
+<option value="5">Blue</option>
+<option value="6">Indigo</option>
+<option value="7">Violet</option>
+</select>
+<script>
+jQuery('#my-multiselect').multiselect();
+</script>
+```
 
+### Demo
 
-</dd>
-<dt>enableCaseInsensitiveFiltering</dt>
-<dd>
-	Default = true,
-</dd>
-<dt>enableCollapsibleOptGroups</dt>
-<dd>Default true</dd>
-<dt>includeSelectAllOptionMin</dt>
-<dd>
-
-	default: 50
-</dd>
-<dt>selectAllDeselectAll</dt>
-<dd>false,  // Deselect all if All is selected
-</dd>
-<dt>selectAllText</dt>
-<dd>
-	Default: 'All'
-</dd>
-<dt>selectAllValue</dt>
-<dd>
-
-</dd>
-</dl>
-
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<script src="js/jquery.min.js" defer="defer"></script>
+<script src="js/bootstrap.bundle.min.js" defer="defer"></script>
+<script src="../src/multiselect-bs4.js" defer="defer"></script>
+<label for="color">Color:</label>
+<select id="color" class="form-control" name="state" multiple="multiple">
+<option value="1">Red</option>
+<option value="2">Orange</option>
+<option value="3">Yellow</option>
+<option value="4">Green</option>
+<option value="5">Blue</option>
+<option value="6">Indigo</option>
+<option value="7">Violet</option>
+</select>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+	jQuery('#color').multiselect({
 
+	});
 });
 </script>
-</body>
-</html>
 
+---
 
+## Options
 
+#### ```collapseOptGroupsByDefault```
+
+When an optgroup exists in a select, collapse them.
+
+---
+
+#### enableCaseInsensitiveFiltering
+
+default: ```true```
+
+Enable case insensitive filtering when filtering is enabled.
+
+---
+
+#### enableCollapsibleOptGroups
+
+default: ```true```
+
+---
+
+#### includeSelectAllOption
+
+default: ```false```
+
+Include an option to "Select All". This is typically disabled because the
+```includeSelectAllOptionMin``` is normally used.
+
+---
+
+#### includeSelectAllOptionMin
+
+default: ```50```
+
+Minimum number of options that trigger the "Select All" option be enabled.
+
+---
+
+#### selectAllDeselectAll
+
+default: ```false```
+
+De-select all options if the "Select All" option is selected.
+
+---
+
+#### selectAllText
+
+default: "All"
+
+The text for "Sselect All" option.
+
+---
+
+#### selectAllValue
+
+default: ```''```
+
+Value for the "Select All" option.
