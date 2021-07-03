@@ -12,8 +12,10 @@ optgroups are support.
 - [bootstrap](https://getbootstrap.com/) v4
 - [fontawesome](https://fontawesome.com/) v5
 
+### Manual
+
 ```html
-<link rel="stylesheet" href="/path/to/bootstrap.css" />
+<link href="/path/to/bootstrap.css" rel="stylesheet" />
 <script src="/path/to/jquery.js"></script>
 <script src="/path/to/bootstrap.js"></script>
 <script src="/path/to/fontawesome.js"></script>
@@ -22,7 +24,7 @@ optgroups are support.
 
 ### Usage
 
-```javascript
+```html
 <label for="color">Color:</label>
 <select id="color" class="form-control" name="state" multiple="multiple">
 <option value="1">Red</option>
@@ -33,9 +35,10 @@ optgroups are support.
 <option value="6">Indigo</option>
 <option value="7">Violet</option>
 </select>
-<script>
+```
+
+```javascript
 jQuery('#my-multiselect').multiselect();
-</script>
 ```
 
 ### Demo
@@ -55,11 +58,7 @@ jQuery('#my-multiselect').multiselect();
 <option value="7">Violet</option>
 </select>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-	jQuery('#color').multiselect({
-
-	});
-});
+jQuery('#color').multiselect();
 </script>
 
 ---
@@ -78,48 +77,37 @@ default: ```true```
 
 Enable case insensitive filtering when filtering is enabled.
 
----
-
-#### enableCollapsibleOptGroups
+#### ```enableCollapsibleOptGroups
 
 default: ```true```
 
----
 
-#### includeSelectAllOption
+#### ```includeSelectAllOption```
 
 default: ```false```
 
 Include an option to "Select All". This is typically disabled because the
 ```includeSelectAllOptionMin``` is normally used.
 
----
 
-#### includeSelectAllOptionMin
+#### ```includeSelectAllOptionMin```
 
 default: ```50```
 
 Minimum number of options that trigger the "Select All" option be enabled.
 
----
 
-#### selectAllDeselectAll
+#### ```selectAllDeselectAll```
 
 default: ```false```
 
 De-select all options if the "Select All" option is selected.
 
----
-
-#### selectAllText
-
+#### ```selectAllText```
 default: "All"
-
 The text for "Sselect All" option.
 
----
-
-#### selectAllValue
+#### ```selectAllValue```
 
 default: ```''```
 
