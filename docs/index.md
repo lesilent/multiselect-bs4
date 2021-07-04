@@ -1,6 +1,7 @@
 # Documentation
 
 A multiselect picker for Bootstrap 4.
+
 optgroups are support.
 
 ---
@@ -41,12 +42,12 @@ optgroups are support.
 jQuery('#my-multiselect').multiselect();
 ```
 
-### Demo
+## Demo
 
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <script src="js/jquery.min.js" defer="defer"></script>
 <script src="js/bootstrap.bundle.min.js" defer="defer"></script>
-<script src="../src/multiselect-bs4.js" defer="defer"></script>
+<script src="js/multiselect-bs4.js" defer="defer"></script>
 <label for="color">Color:</label>
 <select id="color" class="form-control" name="state" multiple="multiple">
 <option value="1">Red</option>
@@ -65,50 +66,13 @@ jQuery('#color').multiselect();
 
 ## Options
 
-#### ```collapseOptGroupsByDefault```
-
-When an optgroup exists in a select, collapse them.
-
----
-
-#### enableCaseInsensitiveFiltering
-
-default: ```true```
-
-Enable case insensitive filtering when filtering is enabled.
-
-#### ```enableCollapsibleOptGroups
-
-default: ```true```
-
-
-#### ```includeSelectAllOption```
-
-default: ```false```
-
-Include an option to "Select All". This is typically disabled because the
-```includeSelectAllOptionMin``` is normally used.
-
-
-#### ```includeSelectAllOptionMin```
-
-default: ```50```
-
-Minimum number of options that trigger the "Select All" option be enabled.
-
-
-#### ```selectAllDeselectAll```
-
-default: ```false```
-
-De-select all options if the "Select All" option is selected.
-
-#### ```selectAllText```
-default: "All"
-The text for "Sselect All" option.
-
-#### ```selectAllValue```
-
-default: ```''```
-
-Value for the "Select All" option.
+| Option | Default | Description |
+| --- | --- | --- |
+| ```collapseOptGroupsByDefault``` | ```true``` | When an optgroup exists in a select, collapse them. |
+| ```enableCaseInsensitiveFiltering``` | ```true``` | Enable case insensitive filtering when filtering is enabled. |
+| ```enableCollapsibleOptGroups``` | ```true``` | Make optgroups collapsible. |
+| ```includeSelectAllOption``` | ```false``` | Include an option to "Select All". This is typically disabled because the ```includeSelectAllOptionMin``` is normally used. |
+| ```includeSelectAllOptionMin``` | ```50``` | Minimum number of options that trigger the "Select All" option be enabled. |
+| ```selectAllDeselectAll``` | ```false``` | De-select all options if the "Select All" option is selected. |
+| ```selectAllText``` | ```'All'``` | The text for "Sselect All" option. |
+| ```selectAllValue``` | ```''``` | The value for the "Select All" option. |
