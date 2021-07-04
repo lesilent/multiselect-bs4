@@ -19,6 +19,7 @@ optgroups are support.
 <link href="/path/to/bootstrap.css" rel="stylesheet" />
 <script src="/path/to/jquery.js"></script>
 <script src="/path/to/bootstrap.js"></script>
+<script src="/path/to/regular.js"></script>
 <script src="/path/to/fontawesome.js"></script>
 <script src="/path/to/multiselect-bs4.js"></script>
 ```
@@ -26,7 +27,8 @@ optgroups are support.
 ### Usage
 
 ```html
-<div class="form-group">
+<div class="row justify-content-center">
+<div class="form-group col-6">
 <label for="color">Color:</label>
 <select id="color" class="multiselect" name="color" multiple="multiple">
 <option value="1">Red</option>
@@ -42,6 +44,7 @@ optgroups are support.
 </optgroup>
 </select>
 </div>
+</div>
 ```
 
 ```javascript
@@ -55,9 +58,12 @@ jQuery('.multiselect').multiselect();
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/multiselect-bs4.js"></script>
+<script src="js/regular.min.js"></script>
+<script src="js/fontawesome.min.js"></script>
+<script src="js/multiselect-bs4.min.js"></script>
 
-<div class="form-group">
+<div class="row justify-content-center">
+<div class="form-group col-6">
 <label for="color">Color:</label>
 <select id="color" class="multiselect" name="state" multiple="multiple">
 <option value="1">Red</option>
@@ -72,6 +78,7 @@ jQuery('.multiselect').multiselect();
 <option value="9">Dark Red</option>
 </optgroup>
 </select>
+</div>
 </div>
 <script>
 jQuery('.multiselect').multiselect();

@@ -14,7 +14,7 @@ var settings = {
 	collapseOptGroupsByDefault: true,
 	enableCaseInsensitiveFiltering: true,
 	enableCollapsibleOptGroups: true,
-	includeSelectAllOptionMin: 50, // Minimum number of options to automatically enable includeSelectAllOPtion
+	includeSelectAllOptionMin: 50, // Minimum number of options to automatically enable includeSelectAllOption
 //	maxHeight: '20rem',
 	selectAllDeselectAll: false,  // Deselect all if All is selected
 	selectAllText: 'All',
@@ -88,7 +88,7 @@ jQuery.fn.multiselect = function (options) {
 		var html = '<div class="btn-group btn-block dropdown d-print-none' + (options.dropUp ? ' dropup' : '') + (options.dropRight ? ' dropright' : '' ) + '">'
 			+ '<button type="button" id="' + select_id + '-dropdown-btn" class="btn btn-outline-secondary btn-block dropdown-toggle' + ((selected_count > 0) ? ' active bg-secondary text-white' : 'bg-white text-dark') + '" data-toggle="dropdown" data-boundary="window" data-display="' + display + '" aria-haspopup="true" aria-expanded="false" aria-pressed="' + ((selected_count > 0) ? 'true' : 'false') + '" ' + (this.disabled ? 'disabled="disabled"' : '') + ' style="border-top-right-radius:0; border-bottom-right-radius:0;">'
 			+ (($label.hasClass('sr-only') || $label.hasClass('invisible') || $label.hasClass('hidden') || $label.prop('hidden')) ? ($label.html().replace(/\s*:$/, '') || '') : '')
-			+ '&nbsp;<span id="' + select_id + '-dropdown-badge" class="badge badge-light" ' + (selected_count > 0 ? '' : 'hidden="hidden') + '">' + selected_count + '</span>'
+			+ '&nbsp;<span id="' + select_id + '-dropdown-badge" class="badge badge-light" ' + (selected_count > 0 ? '' : 'hidden="hidden') + '>' + selected_count + '</span>'
 			+ '</button>'
 			+ '<div id="' + select_id + '-dropdown-menu" class="dropdown-menu overflow-auto w-100'
 			+ (($select.offset().left > window.innerWidth / 2) ? ' dropdown-menu-right' : '')
