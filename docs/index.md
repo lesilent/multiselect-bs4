@@ -28,7 +28,7 @@ optgroups are support.
 ```html
 <div class="form-group">
 <label for="color">Color:</label>
-<select id="color" class="multiselect" name="state" multiple="multiple">
+<select id="color" class="multiselect" name="color" multiple="multiple">
 <option value="1">Red</option>
 <option value="2">Orange</option>
 <option value="3">Yellow</option>
@@ -83,11 +83,11 @@ jQuery('.multiselect').multiselect();
 
 | Option | Default | Description |
 | --- | :---: | --- |
-| ```collapseOptGroupsByDefault``` | ```true``` | When an optgroup exists in a select, collapse them. |
-| ```enableCaseInsensitiveFiltering``` | ```true``` | Enable case insensitive filtering when filtering is enabled. |
-| ```enableCollapsibleOptGroups``` | ```true``` | Make optgroups collapsible. |
-| ```includeSelectAllOption``` | ```false``` | Include an option to "Select All". This is typically disabled because the ```includeSelectAllOptionMin``` is normally used. |
-| ```includeSelectAllOptionMin``` | ```50``` | Minimum number of options that trigger the "Select All" option be enabled. |
-| ```selectAllDeselectAll``` | ```false``` | De-select all options if the "Select All" option is selected. |
-| ```selectAllText``` | ```'All'``` | The text for "Sselect All" option. |
-| ```selectAllValue``` | ```''``` | The value for the "Select All" option. |
+| `collapseOptGroupsByDefault` | `true` | When an optgroup exists in a select, collapse them. |
+| `enableCaseInsensitiveFiltering` | `true` | Enable case insensitive filtering when filtering is enabled. |
+| `enableCollapsibleOptGroups` | `true` | Make optgroups collapsible. |
+| `includeSelectAllOption` | `false` | Include an option to "Select All". This is typically disabled because the `includeSelectAllOptionMin` is normally used. |
+| `includeSelectAllOptionMin` | `50` | Minimum number of options that trigger the "Select All" option be enabled. |
+| `selectAllDeselectAll` | `false` | De-select all options if the "Select All" option is selected. |
+| `selectAllText` | `'All'` | The text for "Sselect All" option. |
+| `selectAllValue` | `''` | The value for the "Select All" option. |
