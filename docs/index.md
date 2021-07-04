@@ -26,6 +26,7 @@ optgroups are support.
 ### Usage
 
 ```html
+<div class="form-group">
 <label for="color">Color:</label>
 <select id="color" class="multiselect" name="state" multiple="multiple">
 <option value="1">Red</option>
@@ -35,11 +36,12 @@ optgroups are support.
 <option value="5">Blue</option>
 <option value="6">Indigo</option>
 <option value="7">Violet</option>
-<opgtroup label="Reds">
+<optgroup label="Reds">
 <option value="8">Light Red</option>
 <option value="9">Dark Red</option>
 </optgroup>
 </select>
+</div>
 ```
 
 ```javascript
@@ -55,6 +57,7 @@ jQuery('.multiselect').multiselect();
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/multiselect-bs4.js"></script>
 
+<div class="form-group">
 <label for="color">Color:</label>
 <select id="color" class="multiselect" name="state" multiple="multiple">
 <option value="1">Red</option>
@@ -64,11 +67,12 @@ jQuery('.multiselect').multiselect();
 <option value="5">Blue</option>
 <option value="6">Indigo</option>
 <option value="7">Violet</option>
-<opgtroup label="Reds">
+<optgroup label="Reds">
 <option value="8">Light Red</option>
 <option value="9">Dark Red</option>
 </optgroup>
 </select>
+</div>
 <script>
 jQuery('.multiselect').multiselect();
 </script>
