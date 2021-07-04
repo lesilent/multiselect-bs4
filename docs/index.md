@@ -27,7 +27,7 @@ optgroups are support.
 
 ```html
 <label for="color">Color:</label>
-<select id="color" class="form-control" name="state" multiple="multiple">
+<select id="color" class="multiselect" name="state" multiple="multiple">
 <option value="1">Red</option>
 <option value="2">Orange</option>
 <option value="3">Yellow</option>
@@ -35,21 +35,28 @@ optgroups are support.
 <option value="5">Blue</option>
 <option value="6">Indigo</option>
 <option value="7">Violet</option>
+<opgtroup label="Reds">
+<option value="8">Light Red</option>
+<option value="9">Dark Red</option>
+</optgroup>
 </select>
 ```
 
 ```javascript
-jQuery('#my-multiselect').multiselect();
+jQuery('.multiselect').multiselect();
 ```
 
 ## Demo
 
+### Basic Example
+
 <link rel="stylesheet" href="css/bootstrap.min.css" />
-<script src="js/jquery.min.js" defer="defer"></script>
-<script src="js/bootstrap.bundle.min.js" defer="defer"></script>
-<script src="js/multiselect-bs4.js" defer="defer"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/multiselect-bs4.js"></script>
+
 <label for="color">Color:</label>
-<select id="color" class="form-control" name="state" multiple="multiple">
+<select id="color" class="multiselect" name="state" multiple="multiple">
 <option value="1">Red</option>
 <option value="2">Orange</option>
 <option value="3">Yellow</option>
@@ -57,9 +64,13 @@ jQuery('#my-multiselect').multiselect();
 <option value="5">Blue</option>
 <option value="6">Indigo</option>
 <option value="7">Violet</option>
+<opgtroup label="Reds">
+<option value="8">Light Red</option>
+<option value="9">Dark Red</option>
+</optgroup>
 </select>
 <script>
-jQuery('#color').multiselect();
+jQuery('.multiselect').multiselect();
 </script>
 
 ---
@@ -67,7 +78,7 @@ jQuery('#color').multiselect();
 ## Options
 
 | Option | Default | Description |
-| --- | --- | --- |
+| --- | :---: | --- |
 | ```collapseOptGroupsByDefault``` | ```true``` | When an optgroup exists in a select, collapse them. |
 | ```enableCaseInsensitiveFiltering``` | ```true``` | Enable case insensitive filtering when filtering is enabled. |
 | ```enableCollapsibleOptGroups``` | ```true``` | Make optgroups collapsible. |
