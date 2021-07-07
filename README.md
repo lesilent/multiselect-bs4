@@ -59,6 +59,7 @@ jQuery('.multiselect').multiselect();
 | `enableCollapsibleOptGroups` | `true` | Make optgroups collapsible. |
 | `includeSelectAllOption` | `false` | Include an option to "Select All". This is typically disabled because the `includeSelectAllOptionMin` is normally used. |
 | `includeSelectAllOptionMin` | `50` | Minimum number of options that trigger the "Select All" option be enabled. |
+| `minScreenWidth` | `576` | Minimum screen width where multiselect is enabled. |
 | `selectAllDeselectAll` | `false` | De-select all options if the "Select All" option is selected. |
 | `selectAllText` | `'All'` | The text for "Sselect All" option. |
 | `selectAllValue` | `''` | The value for the "Select All" option. |
