@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js" integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="js/multiselect-bs4.js?" defer="defer"></script>
+</head>
+<body>
+<div class="container py-3">
+<h1>mutiselect-bs4</h1>
+
+<p>multiple select picker for Bootstrap 4</p>
+
+
+<h2>Examples</h2>
+
+<div class="card">
+<div class="card-header">Basic Example</div>
+<div class="card-body">
+<div class="row justify-content-start">
+<div class="form-group col-6">
+<label for="color">Color:</label>
+<select id="color" class="multiselect" name="color[]" multiple="multiple">
+<option value="1">Red</option>
+<option value="2">Orange</option>
+<option value="3">Yellow</option>
+<option value="4">Green</option>
+<option value="5">Blue</option>
+<option value="6">Indigo</option>
+<option value="7">Violet</option>
+<optgroup label="Reds">
+<option value="8">Light Red</option>
+<option value="9">Dark Red</option>
+</optgroup>
+</select>
+</div><!-- /.form-group -->
+</div><!-- /.row -->
+</div><!-- /.card-body -->
+</div><!-- /card -->
+<br />
+<div class="card">
+<div class="card-header">Example with options selected</div>
+<div class="card-body">
+<div class="row justify-content-start">
+<div class="form-group col-6">
+<label for="employee">Employee:</label>
+<select id="employee" class="multiselect" name="employee[]" multiple="multiple">
+<option value="Bill">Bill</option>
+<option value="Jack" selected="selected">Jack</option>
+<option value="Jill">Jill</option>
+<option value="John" selected="selected">John</option>
+<option value="June">June</option>
+<optgroup label="Part Time">
+<option value="Kara">Kara</option>
+<option value="Kate" selected="selected">Kate</option>
+<option value="Ken">Ken</option>
+</optgroup>
+</select>
+</div><!-- /.form-group -->
+</div><!-- /.row -->
+</div><!-- /.card-body -->
+</div><!-- /card -->
+<br />
+<div class="card">
+<div class="card-header">Example with 50 options to trigger All Option</div>
+<div class="card-body">
+<div class="row justify-content-start">
+<div class="form-group col-6">
+<label for="state">State:</label>
+<select id="state" class="multiselect" name="state[]" multiple="multiple">
+<option value="AL">AL - Alabama</option>
+<option value="AK">AK - Alaska</option>
+<option value="AZ">AZ - Arizona</option>
+<option value="AR">AR - Arkansas</option>
+<option value="CA">CA - California</option>
+<option value="CO">CO - Colorado</option>
+<option value="CT">CT - Connecticut</option>
+<option value="DE">DE - Delaware</option>
+<option value="DC">DC - District of Columbia</option>
+<option value="FL">FL - Florida</option>
+<option value="GA">GA - Georgia</option>
+<option value="HI">HI - Hawaii</option>
+<option value="ID">ID - Idaho</option>
+<option value="IL">IL - Illinois</option>
+<option value="IN">IN - Indiana</option>
+<option value="IA">IA - Iowa</option>
+<option value="KS">KS - Kansas</option>
+<option value="KY">KY - Kentucky</option>
+<option value="LA">LA - Louisiana</option>
+<option value="ME">ME - Maine</option>
+<option value="MD">MD - Maryland</option>
+<option value="MA">MA - Massachusettes</option>
+<option value="MI">MI - Michigan</option>
+<option value="MN">MN - Minnesota</option>
+<option value="MS">MS - Mississippi</option>
+<option value="MO">MO - Missouri</option>
+<option value="MT">MT - Montana</option>
+<option value="NE">NE - Nebraska</option>
+<option value="NV">NV - Nevada</option>
+<option value="NH">NH - New Hampshire</option>
+<option value="NJ">NJ - New Jersey</option>
+<option value="NM">NM - New Mexico</option>
+<option value="NY">NY - New York</option>
+<option value="NC">NC - North Carolina</option>
+<option value="ND">ND - North Dakota</option>
+<option value="OH">OH - Ohio</option>
+<option value="OK">OK - Oklahoma</option>
+<option value="OR">OR - Oregon</option>
+<option value="PA">PA - Pennsylvania</option>
+<option value="RI">RI - Rhode Island</option>
+<option value="SC">SC - South Carolina</option>
+<option value="SD">SD - South Dakota</option>
+<option value="TN">TN - Tennesee</option>
+<option value="TX">TX - Texas</option>
+<option value="UT">UT - Utah</option>
+<option value="VT">VT - Vermont</option>
+<option value="VA">VA - Virginia</option>
+<option value="WA">WA - Washington</option>
+<option value="WV">WV - West Virginia</option>
+<option value="WI">WI - Wisconsin</option>
+<option value="WY">WY - Wyoming</option>
+<optgroup label="Reds">
+<option value="8">Light Red</option>
+<option value="9">Dark Red</option>
+</optgroup>
+</select>
+</div><!-- /.form-group -->
+</div><!-- /.row -->
+</div><!-- /.card-body -->
+</div><!-- /.card -->
+<br />
+<div class="card">
+<div class="card-header">Example with search filter</div>
+<div class="card-body">
+<div class="row justify-content-start">
+<div class="form-group col-6">
+<label for="country">Country:</label>
+<select id="country" class="multiselect" name="country[]" multiple="multiple">
+<option value="Australia">Australia</option>
+<option value="Austria">Austria</option>
+<option value="Brazil">Brazil</option>
+<option value="Canada">Canada</option>
+<option value="China">China</option>
+<option value="Egypt">Egypt</option>
+<option value="England">England</option>
+<option value="Iceland">Iceland</option>
+<option value="Japan">Japan</option>
+<option value="Mexico">Mexico</option>
+<option value="United States">United States</option>
+</select>
+</div><!-- /.form-group -->
+</div><!-- /.row -->
+</div><!-- /.card-body -->
+</div><!-- /.card -->
+<br />
+
+</div><!-- /.container -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	jQuery('#color, #employee, #state').multiselect();
+	jQuery('#country').multiselect({
+		enableFiltering: true
+	});
+});
+</script>
+</body>
+</html>

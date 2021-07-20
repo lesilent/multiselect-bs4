@@ -1,7 +1,6 @@
-# Mutiselect-bs4 - multiple select picker for Bootstrap 4
-
-
----
+Mutiselect-bs4
+==============
+multiple select picker for Bootstrap 4
 
 ## Installation
 
@@ -48,8 +47,6 @@
 jQuery('.multiselect').multiselect();
 ```
 
----
-
 ## Options
 
 | Option | Default | Description |
@@ -57,6 +54,7 @@ jQuery('.multiselect').multiselect();
 | `collapseOptGroupsByDefault` | `true` | When an optgroup exists in a select, collapse them. |
 | `enableCaseInsensitiveFiltering` | `true` | Enable case insensitive filtering when filtering is enabled. |
 | `enableCollapsibleOptGroups` | `true` | Make optgroups collapsible. |
+| `enableFiltering` | `false` | Enable a filter to select options with. |
 | `includeSelectAllOption` | `false` | Include an option to "Select All". This is typically disabled because the `includeSelectAllOptionMin` is normally used. |
 | `includeSelectAllOptionMin` | `50` | Minimum number of options that trigger the "Select All" option be enabled. |
 | `minScreenWidth` | `576` | Minimum screen width where multiselect is enabled. |
