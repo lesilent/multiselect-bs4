@@ -107,7 +107,7 @@ jQuery.fn.multiselect = function (options) {
 				+ '<div class="input-group-append"><button type="button" id="' + select_id + '-search-reset" class="btn btn-outline-secondary"><i class="far fa-times-circle"></i></button></div>'
 				+ '</div></div>';
 		}
-		if (select_options.includeSelectAllOption || $select.children('option').length >= select_options.includeSelectAllOptionMin)
+		if (select_options.includeSelectAllOption || (select_options.includeSelectAllOptionMin !== false && $select.children('option').length >= select_options.includeSelectAllOptionMin))
 		{
 			html += '<div id="' + select_id + '-dropdown-item-all" class="dropdown-item-text text-nowrap px-2">'
 				+ '<label class="mb-0 d-block" for="' + select_id + '-dropdown-checkbox-all">'
@@ -243,6 +243,7 @@ jQuery.fn.multiselect = function (options) {
 			jQuery('#' + select_id + '-dropdown-badge').text(0).prop('hidden', true);
 			jQuery('#' + select_id + '-dropdown-btn').toggleClass(['active', 'bg-secondary', 'text-white'], false).toggleClass(['bg-white', 'text-dark'], true).attr('aria-pressed', false);
 			this.disabled = true;
+			$select.trigger('change');
 		});
 
 		// Trigger change on page show so that drop down gets updated when back button gets pressed
