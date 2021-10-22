@@ -1,8 +1,11 @@
 /**
  * Multiselect for bootstrap 4
+ *
+ * https://github.com/lesilent/multiselect-bs4
  */
 (function () {
 //-------------------------------------
+'use strict';
 
 /**
  * Default options for the current modal being displayed
@@ -65,7 +68,7 @@ jQuery.fn.multiselect = function (options) {
 	{
 		options = {};
 	}
-	common_options = jQuery.extend({}, settings, options);
+	var common_options = jQuery.extend({}, settings, options);
 
 	// Return if screen doesn't meet the mininum width
 	if (common_options.minScreenWidth && window.screen.width < common_options.minScreenWidth)
@@ -87,11 +90,16 @@ jQuery.fn.multiselect = function (options) {
 		var select_length = $select.find('option').length;
 		var selected_count = 0;
 		var selected_text = [];
+		var separator = ', ';
 		$select.find('option:selected').each(function () {
 			selected_count++;
 			if (selected_count < 10)
 			{
 				selected_text.push(this.innerText);
+				if (separator == ', ' && this.innerText.indexOf(',') >= 0)
+				{
+					separator = '; ';
+				}
 			}
 		});
 		var max_height = ($select.offset().top > 0)
@@ -103,7 +111,7 @@ jQuery.fn.multiselect = function (options) {
 			+ '<button type="button" id="' + select_id + '-dropdown-btn" class="btn btn-outline-secondary btn-block overflow-hidden dropdown-toggle ' + ((selected_count > 0) ? 'active bg-secondary text-white' : 'bg-white text-dark') + '" data-toggle="dropdown" data-boundary="window" data-display="' + display + '" aria-haspopup="true" aria-expanded="false" aria-pressed="' + ((selected_count > 0) ? 'true' : 'false') + '" ' + (this.disabled ? 'disabled="disabled"' : '') + ' style="border-top-right-radius:0; border-bottom-right-radius:0;">'
 			+ (($label.hasClass('sr-only') || $label.hasClass('invisible') || $label.hasClass('hidden') || $label.prop('hidden')) ? ($label.html().replace(/\s*:$/, '') || '') : '')
 			+ '<div class="d-inline-flex justify-content-center align-items-center" style="max-width:calc(100% - 2rem)">'
-			+ '&nbsp;<div id="' + select_id + '-dropdown-text" class="text-truncate"' + (selected_count > 0 ? '' : ' hidden="hidden"') + '>' + selected_text.join(', ') + '</div>'
+			+ '&nbsp;<div id="' + select_id + '-dropdown-text" class="text-truncate"' + (selected_count > 0 ? '' : ' hidden="hidden"') + '>' + selected_text.join(separator) + '</div>'
 			+ '&nbsp;<div id="' + select_id + '-dropdown-badge" class="badge badge-light" ' + (selected_count > 1 ? '' : 'hidden="hidden"') + '>' + selected_count + '</div>'
 			+ '</div>'
 			+ '</button>'
@@ -237,6 +245,7 @@ jQuery.fn.multiselect = function (options) {
 			$dropdown.find('input.dropdown-checkbox').prop('checked', false);
 			selected_count = 0;
 			selected_text = [];
+			separator = ', ';
 			$select.find('option').each(function () {
 				$dropdown.find('input.dropdown-checkbox[value="' + this.value + '"]').prop({
 					disabled: this.disabled,
@@ -248,11 +257,14 @@ jQuery.fn.multiselect = function (options) {
 					if (selected_count < 10)
 					{
 						selected_text.push(this.innerText);
+						if (separator == ', ' && this.innerText.indexOf(',') >= 0)
+						{
+							separator = '; ';
+						}
 					}
 				}
 			});
-			selected_text = selected_text.join(', ', selected_text);
-			jQuery('#' + select_id + '-dropdown-text').text(selected_text).prop('hidden', selected_count < 1);
+			jQuery('#' + select_id + '-dropdown-text').text(selected_text.join(separator)).prop('hidden', selected_count < 1);
 			jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 2);
 			jQuery('#' + select_id + '-dropdown-btn').toggleClass(['active', 'bg-secondary', 'text-white'], selected_count > 0).toggleClass(['bg-white', 'text-dark'], selected_count < 1).attr('aria-pressed', selected_count > 0);
 			jQuery('#' + select_id + '-reset-btn').prop('disabled', selected_count < 1);
