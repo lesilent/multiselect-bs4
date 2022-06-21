@@ -17,7 +17,7 @@ var settings = {
 	collapseOptGroupsByDefault: true,
 	enableCaseInsensitiveFiltering: true,
 	enableCollapsibleOptGroups: true,
-	includeSelectAllOptionMin: 50, // Minimum number of options to automatically enable includeSelectAllOption
+	includeSelectAllOptionMin: 10, // Minimum number of options to automatically enable includeSelectAllOption
 //	maxHeight: '20rem',
 	minScreenWidth: 576,
 	selectAllDeselectAll: false,  // Deselect all if All is selected
@@ -177,17 +177,23 @@ jQuery.fn.multiselect = function (options) {
 		var $dropdown = jQuery('#' + select_id + '-dropdown-menu').on('click', function (e) {
 			e.stopPropagation();
 		});
+		var $allbox = jQuery('#' + select_id + '-dropdown-checkbox-all');
 		$dropdown.find('input.dropdown-checkbox').on('click', function (e) {
 			var offset = jQuery(this).data('offset');
 			if (offset > 0)
 			{
+				if ($allbox.length > 0 && !this.checked && $allbox.prop('checked') && !(select_options.enableFiltering && document.getElementById(select_id + '-search-input').value.length > 0))
+				{
+					// If unchecking a box when all is checked, then select all other options
+					$select.find('option').prop('selected', true);
+				}
 				$select.find('option').eq(offset - 1).prop('selected', this.checked);
 				selected_count = $select.find('option:selected').length;
 				jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 1);
 				$select.trigger('change');
 			}
 		});
-		jQuery('#' + select_id + '-dropdown-checkbox-all').on('click', function () {
+		$allbox.on('click', function () {
 			if (this.checked && select_options.enableFiltering && document.getElementById(select_id + '-search-input').value.length > 0)
 			{
 				// Handle when all is checked with filtering
@@ -268,6 +274,10 @@ jQuery.fn.multiselect = function (options) {
 			jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 2);
 			jQuery('#' + select_id + '-dropdown-btn').toggleClass(['active', 'bg-secondary', 'text-white'], selected_count > 0).toggleClass(['bg-white', 'text-dark'], selected_count < 1).attr('aria-pressed', selected_count > 0);
 			jQuery('#' + select_id + '-reset-btn').prop('disabled', selected_count < 1);
+			if (selected_count == select_length)
+			{
+				$allbox.prop('checked', true);
+			}
 		});
 
 		jQuery('#' + select_id + '-reset-btn').on('click', function () {
