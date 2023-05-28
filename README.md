@@ -6,8 +6,8 @@ multiple select picker for Bootstrap 4
 
 ### Dependencies
 - [jQuery](https://jquery.com/)
-- [bootstrap](https://getbootstrap.com/) v4
-- [fontawesome](https://fontawesome.com/) v5
+- [Bootstrap](https://getbootstrap.com/) v4
+- [Font Awesome](https://fontawesome.com/) v5
 
 ### Manual
 
@@ -51,9 +51,9 @@ jQuery('.multiselect').multiselect();
 
 | Option | Default | Description |
 | --- | :---: | --- |
-| `collapseOptGroupsByDefault` | `true` | When an optgroup exists in a select, collapse them. |
-| `enableCaseInsensitiveFiltering` | `true` | Enable case insensitive filtering when filtering is enabled. |
-| `enableCollapsibleOptGroups` | `true` | Make optgroups collapsible. |
+| `collapseOptGroupsByDefault` | `false` | When an optgroup exists in a select, collapse them. |
+| `enableCaseSensitiveFiltering` | `false` | Enable case sensitive filtering when filtering is enabled. |
+| `enableCollapsibleOptGroups` | `false` | Make optgroups collapsible. |
 | `enableFiltering` | `false` | Enable a search filter to select options with. |
 | `includeSelectAllOption` | `false` | Include an option to "Select All". This is typically disabled because the `includeSelectAllOptionMin` is normally used. |
 | `includeSelectAllOptionMin` | `50` | Minimum number of options that trigger the "Select All" option be enabled. |

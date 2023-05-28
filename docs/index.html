@@ -4,168 +4,237 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js" integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
-<script src="js/multiselect-bs4.js?" defer="defer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="js/multiselect-bs4.min.js?" defer="defer"></script>
+<style>
+.form-control::placeholder {
+	opacity: 0.5 !important;
+}
+</style>
 </head>
 <body>
 <div class="container py-3">
-<h1>mutiselect-bs4</h1>
-
-<p>multiple select picker for Bootstrap 4</p>
-
-
-<h2>Examples</h2>
-
-<div class="card">
-<div class="card-header">Basic Example</div>
-<div class="card-body">
-<div class="row justify-content-start">
-<div class="form-group col-6">
-<label for="color">Color:</label>
-<select id="color" class="multiselect" name="color[]" multiple="multiple">
-<option value="1">Red</option>
-<option value="2">Orange</option>
-<option value="3">Yellow</option>
-<option value="4">Green</option>
-<option value="5">Blue</option>
-<option value="6">Indigo</option>
-<option value="7">Violet</option>
-<optgroup label="Reds">
-<option value="8">Light Red</option>
-<option value="9">Dark Red</option>
-</optgroup>
-</select>
-</div><!-- /.form-group -->
+<div class="d-flex justify-content-between">
+	<div><h1 class="display-4">mutiselect-bs4</h1></div>
+	<div><a href="https://github.com/lesilent/mutiselect-bs4"><i class="fab fa-github fa-lg m-2"></i></a></div>
+</div><!-- /.d-flex -->
+<div class="list-group">
+<div class="list-group-item bg-light font-weight-bolder">Options</div>
+<div class="list-group-item"><form id="custom-form" autocomplete="off" onsubmit="return false">
+<div class="row">
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="selectAll">Select All Option:</label>
+		<div class="input-group">
+		<select id="selectAll" class="form-control" name="selectAll" disabled="disabled">
+		<option value="0" data-include-select-all-option-min="false" selected="selected">No</option>
+		<option value="1" data-include-select-all-option-min="false">Yes (Always)</option>
+		<option value="0" data-include-select-all-option-min="true">Yes (&ge; # Options)</option>
+		</select>
+		<div class="input-group-append"><button type="button" id="selectAll-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="selectAllMin"># Options for Select All</label>
+		<div class="input-group">
+		<input type="number" id="selectAllMin" class="form-control" name="selectAllMin" value="" min="1" max="9999" pattern="(\d{1,5})?" maxlength="4" readonly="readonly" disabled="disabled" />
+		<div class="input-group-append"><button type="button" id="selectAllMin-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="selectAllText">Select All Text:</label>
+		<div class="input-group">
+		<input type="text" id="selectAllText" class="form-control" name="selectAllText" value="" placeholder="All" maxlength="100" readonly="readonly" disabled="disabled" />
+		<div class="input-group-append"><button type="button" id="selectAllText-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="collapsibleOptGroups">Collapsible Optgroups:</label>
+		<div class="input-group">
+		<select id="collapsibleOptGroups" class="form-control" name="collapsibleOptGroups">
+		<option value="0" data-enable-collapsible-opt-groups="false" data-collapse-opt-groups-by-default="false" selected="selected">No</option>
+		<option value="1" data-enable-collapsible-opt-groups="true" data-collapse-opt-groups-by-default="false">Yes (Expanded)</option>
+		<option value="1" data-enable-collapsible-opt-groups="true" data-collapse-opt-groups-by-default="true">Yes (Collapsed)</option>
+		</select>
+		<div class="input-group-append"><button type="button" id="collapsibleOptGroups-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="filtering">Search Filter:</label>
+		<div class="input-group">
+		<select id="filtering" class="form-control" name="filtering">
+		<option value="0" data-enable-filtering="false" data-enable-case-sensitive-filtering="false" selected="selected">No</option>
+		<option value="1" data-enable-filtering="true" data-enable-case-sensitive-filtering="false">Yes (Case-Insensitive)</option>
+		<option value="1" data-enable-filtering="true" data-enable-case-sensitive-filtering="true">Yes (Case-Sensitive)</option>
+		</select>
+		<div class="input-group-append"><button type="button" id="filtering-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
 </div><!-- /.row -->
-</div><!-- /.card-body -->
-</div><!-- /card -->
-<br />
-<div class="card">
-<div class="card-header">Example with options selected</div>
-<div class="card-body">
-<div class="row justify-content-start">
-<div class="form-group col-6">
-<label for="employee">Employee:</label>
-<select id="employee" class="multiselect" name="employee[]" multiple="multiple">
-<option value="Bill">Bill</option>
-<option value="Jack" selected="selected">Jack</option>
-<option value="Jill">Jill</option>
-<option value="John" selected="selected">John</option>
-<option value="June">June</option>
-<optgroup label="Part Time">
-<option value="Kara">Kara</option>
-<option value="Kate" selected="selected">Kate</option>
-<option value="Ken">Ken</option>
-</optgroup>
-</select>
-</div><!-- /.form-group -->
-</div><!-- /.row -->
-</div><!-- /.card-body -->
-</div><!-- /card -->
-<br />
-<div class="card">
-<div class="card-header">Example with 50 options to trigger All Option</div>
-<div class="card-body">
-<div class="row justify-content-start">
-<div class="form-group col-6">
-<label for="state">State:</label>
-<select id="state" class="multiselect" name="state[]" multiple="multiple">
-<option value="AL">AL - Alabama</option>
-<option value="AK">AK - Alaska</option>
-<option value="AZ">AZ - Arizona</option>
-<option value="AR">AR - Arkansas</option>
-<option value="CA">CA - California</option>
-<option value="CO">CO - Colorado</option>
-<option value="CT">CT - Connecticut</option>
-<option value="DE">DE - Delaware</option>
-<option value="DC">DC - District of Columbia</option>
-<option value="FL">FL - Florida</option>
-<option value="GA">GA - Georgia</option>
-<option value="HI">HI - Hawaii</option>
-<option value="ID">ID - Idaho</option>
-<option value="IL">IL - Illinois</option>
-<option value="IN">IN - Indiana</option>
-<option value="IA">IA - Iowa</option>
-<option value="KS">KS - Kansas</option>
-<option value="KY">KY - Kentucky</option>
-<option value="LA">LA - Louisiana</option>
-<option value="ME">ME - Maine</option>
-<option value="MD">MD - Maryland</option>
-<option value="MA">MA - Massachusettes</option>
-<option value="MI">MI - Michigan</option>
-<option value="MN">MN - Minnesota</option>
-<option value="MS">MS - Mississippi</option>
-<option value="MO">MO - Missouri</option>
-<option value="MT">MT - Montana</option>
-<option value="NE">NE - Nebraska</option>
-<option value="NV">NV - Nevada</option>
-<option value="NH">NH - New Hampshire</option>
-<option value="NJ">NJ - New Jersey</option>
-<option value="NM">NM - New Mexico</option>
-<option value="NY">NY - New York</option>
-<option value="NC">NC - North Carolina</option>
-<option value="ND">ND - North Dakota</option>
-<option value="OH">OH - Ohio</option>
-<option value="OK">OK - Oklahoma</option>
-<option value="OR">OR - Oregon</option>
-<option value="PA">PA - Pennsylvania</option>
-<option value="RI">RI - Rhode Island</option>
-<option value="SC">SC - South Carolina</option>
-<option value="SD">SD - South Dakota</option>
-<option value="TN">TN - Tennesee</option>
-<option value="TX">TX - Texas</option>
-<option value="UT">UT - Utah</option>
-<option value="VT">VT - Vermont</option>
-<option value="VA">VA - Virginia</option>
-<option value="WA">WA - Washington</option>
-<option value="WV">WV - West Virginia</option>
-<option value="WI">WI - Wisconsin</option>
-<option value="WY">WY - Wyoming</option>
-<optgroup label="Reds">
-<option value="8">Light Red</option>
-<option value="9">Dark Red</option>
-</optgroup>
-</select>
-</div><!-- /.form-group -->
-</div><!-- /.row -->
-</div><!-- /.card-body -->
-</div><!-- /.card -->
-<br />
-<div class="card">
-<div class="card-header">Example with search filter</div>
-<div class="card-body">
-<div class="row justify-content-start">
-<div class="form-group col-6">
-<label for="country">Country:</label>
-<select id="country" class="multiselect" name="country[]" multiple="multiple">
-<option value="Australia">Australia</option>
-<option value="Austria">Austria</option>
-<option value="Brazil">Brazil</option>
-<option value="Canada">Canada</option>
-<option value="China">China</option>
-<option value="Egypt">Egypt</option>
-<option value="England">England</option>
-<option value="Iceland">Iceland</option>
-<option value="Japan">Japan</option>
-<option value="Mexico">Mexico</option>
-<option value="United States">United States</option>
-</select>
-</div><!-- /.form-group -->
-</div><!-- /.row -->
-</div><!-- /.card-body -->
-</div><!-- /.card -->
-<br />
-
+</form>
+<div><small class="text-secondary">Note: the example multiselect below has <span id="option-count">X</span> options, so only <code>includeSelectAllOptionMin</code> values less than or equal to this will trigger the select all option to appear.</small></div>
+</div><!-- /.list-group-item -->
+<div class="list-group-item bg-light font-weight-bolder">Result</div>
+<div id="multiselect-result" class="list-group-item">
+</div><!-- /.list-group-item -->
+<div class="list-group-item bg-light font-weight-bolder">JavaScript</div>
+<div class="list-group-item"><pre class="mb-0"><code id="multiselect-javascript">jQuery('select.multiselect').multiselect(<span id="multiselect-params"></span>);</code></pre></div>
+<div class="list-group-item bg-light font-weight-bolder">Original</div>
+<div class="list-group-item">
+	<select id="multiselect-select-original" class="form-control multiselect-select" name="multiselect[]" multiple="multiple" autocomplete="off">
+	<option value="a">Andrew</option>
+	<option value="a">Alex</option>
+	<optgroup label="Accounting">
+		<option value="b">Bob</option>
+		<option value="c">Charles</option>
+		<option value="d">David</option>
+		<option value="e">Erin</option>
+	</optgroup>
+	<optgroup label="Engineering">
+		<option value="f">Frank</option>
+		<option value="g">Greg</option>
+		<option value="h">Helen</option>
+	</optgroup>
+	<option value="i">Iris</option>
+	<option value="j">John</option>
+	<option value="k" disabled="disabled">Kevin (Disabled)</option>
+	<option value="l">Larry</option>
+	<optgroup label="Marketing">
+		<option value="m" disabled="disabled">Mindy (Disabled)</option>
+		<option value="n">Nathan</option>
+		<option value="o">Opal</option>
+	</optgroup>
+	<optgroup label="Sales (Disabled)" disabled="disabled">
+		<option value="p">Paul</option>
+		<option value="q">Quincy</option>
+		<option value="r">Roger</option>
+		<option value="s">Samuel</option>
+	</optgroup>
+	<optgroup label="Blank"></optgroup>
+	</select>
+</div><!-- /.list-group-item -->
+</div><!-- /.list-group -->
 </div><!-- /.container -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-	jQuery('#color, #employee, #state').multiselect();
-	jQuery('#country').multiselect({
-		enableFiltering: true
+	var $mselect = jQuery('#multiselect-select-original').clone().attr('id', 'multiselect-select').appendTo('#multiselect-result').multiselect();
+	var $selectAll = jQuery('#selectAll');
+	var $selectAllReset = jQuery('#selectAll-reset-btn').on('click', function () {
+		jQuery('#' + this.id.substring(0, this.id.length - 10)).prop('selectedIndex', 0).trigger('change');
+		this.disabled = true;
 	});
+	var defaultAllMin = $mselect.multiselect('includeSelectAllOptionMin');
+	var $selectAllMin = jQuery('#selectAllMin').val(defaultAllMin).prop('readOnly', false);
+	var $selectAllMinReset = jQuery('#selectAllMin-reset-btn').on('click', function () {
+		jQuery('#' + this.id.substring(0, this.id.length - 10)).val(defaultAllMin).trigger('change');
+		this.disabled = true;
+	});
+	var $selectText = jQuery('#selectAllText').attr('placeholder', $mselect.multiselect('selectAllText')).prop('readOnly', false);
+	var $selectTextReset = jQuery('#selectAllText-reset-btn').on('click', function () {
+		jQuery('#' + this.id.substring(0, this.id.length - 10)).val('').trigger('change');
+		this.disabled = true;
+	});
+	var $collapsibleReset = jQuery('#collapsibleOptGroups-reset-btn').on('click', function () {
+		jQuery('#' + this.id.substring(0, this.id.length - 10)).prop('selectedIndex', 0).trigger('change');
+		this.disabled = true;
+	});
+	var $filteringReset = jQuery('#filtering-reset-btn').on('click', function () {
+		jQuery('#' + this.id.substring(0, this.id.length - 10)).prop('selectedIndex', 0).trigger('change');
+		this.disabled = true;
+	});
+	jQuery('#collapsibleOptGroups, #filtering, #selectAll, #selectAllMin, #selectAllText').on('change', function () {
+		switch (this.id)
+		{
+			case 'selectAll':
+				var disabled = (this.selectedIndex == 0);
+				$selectAllReset.prop('disabled', disabled);
+				$selectText.prop('disabled', disabled);
+				$selectTextReset.prop('disabled', disabled || $selectText.val().length == 0);
+				disabled = !jQuery(this).find('option:selected').data('include-select-all-option-min');
+				console.log(disabled);
+				$selectAllMin.prop('disabled', disabled);
+				$selectAllMinReset.prop('disabled', disabled || $selectAllMin.val().length == 0);
+				break;
+			case 'selectAllMin':
+				this.value = this.value.replace(/\D+/g, '');
+				document.getElementById('selectAllMin-reset-btn').disabled = (this.value.length == 0);
+				break;
+			case 'selectAllText':
+				this.value = this.value.replace(/^\s+|\s+$/, '');
+				document.getElementById('selectAllText-reset-btn').disabled = (this.value.length == 0);
+				break;
+			case 'collapsibleOptGroups':
+			case 'filtering':
+				document.getElementById(this.id + '-reset-btn').disabled = (this.selectedIndex == 0);
+				break;
+		}
+		var options = {};
+		if ($selectAll.prop('selectedIndex') > 0)
+		{
+			if ($selectAll.val() > 0)
+			{
+				options.includeSelectAllOption = true;
+			}
+			else if ($selectAll.find('option:selected').data('include-select-all-option-min'))
+			{
+				var allMin = $selectAllMin.val();
+				if (allMin.length > 0)
+				{
+					options.includeSelectAllOptionMin = parseInt(allMin);
+				}
+			}
+			var allText = $selectText.val();
+			if (allText.length > 0)
+			{
+				options.selectAllText = allText;
+			}
+		}
+		var $optgroups = jQuery('#collapsibleOptGroups').find('option:selected');
+		if ($optgroups.data('enable-collapsible-opt-groups'))
+		{
+			options.enableCollapsibleOptGroups = true;
+			if ($optgroups.data('collapse-opt-groups-by-default'))
+			{
+				options.collapseOptGroupsByDefault = true;
+			}
+		}
+		var $filtering = jQuery('#filtering').find('option:selected');
+		if ($filtering.data('enable-filtering'))
+		{
+			options.enableFiltering = true;
+			if (!$filtering.data('enable-case-sensitive-filtering'))
+			{
+				options.enableCaseSensitiveFiltering = true;
+			}
+		}
+		$mselect.multiselect('dispose').multiselect(options);
+		document.getElementById('multiselect-params').textContent = (Object.keys(options).length > 0) ? JSON.stringify(options, null, "\t").replace(/"([^"]+)":/g, '$1:') : '';
+		/*
+		['collapseOptGroupsByDefault', 'enableCaseInsensitiveFiltering', 'enableCollapsibleOptGroups', 'enableFiltering', 'includeSelectAllOption'].forEach(function (option) {
+			var input = document.getElementById(option);
+			var value = (input.value > 0);
+			options[option] = (input.value > 0);
+		});
+		$selects.multiselect('dispose').multiselect(options);
+		*/
+		/*
+		jQuery.each({ format: 'format', minTime: 'min', maxTime: 'max', step: 'step' }, function (option, attr) {
+			var input = document.getElementById(option);
+			var value = input.value;
+			jQuery('.timepicker-input').timepicker(option, value);
+			if (value.length > 0 && !(option == 'format' && value == defaultFormat))
+			{
+				options[option] = value;
+				attribs += ' ' + ((attr == 'format') ? 'data-' : '') + attr + '="' + value + '"';
+			}
+		});
+		*/
+	});
+	jQuery('#option-count').text($mselect.find('option').length);
+	jQuery('#selectAllMin-help').removeClass('d-none');
+	$selectAll.prop('disabled', false);
 });
 </script>
 </body>
