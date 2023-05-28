@@ -211,26 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		}
 		$mselect.multiselect('dispose').multiselect(options);
 		document.getElementById('multiselect-params').textContent = (Object.keys(options).length > 0) ? JSON.stringify(options, null, "\t").replace(/"([^"]+)":/g, '$1:') : '';
-		/*
-		['collapseOptGroupsByDefault', 'enableCaseInsensitiveFiltering', 'enableCollapsibleOptGroups', 'enableFiltering', 'includeSelectAllOption'].forEach(function (option) {
-			var input = document.getElementById(option);
-			var value = (input.value > 0);
-			options[option] = (input.value > 0);
-		});
-		$selects.multiselect('dispose').multiselect(options);
-		*/
-		/*
-		jQuery.each({ format: 'format', minTime: 'min', maxTime: 'max', step: 'step' }, function (option, attr) {
-			var input = document.getElementById(option);
-			var value = input.value;
-			jQuery('.timepicker-input').timepicker(option, value);
-			if (value.length > 0 && !(option == 'format' && value == defaultFormat))
-			{
-				options[option] = value;
-				attribs += ' ' + ((attr == 'format') ? 'data-' : '') + attr + '="' + value + '"';
-			}
-		});
-		*/
 	});
 	jQuery('#option-count').text($mselect.find('option').length);
 	jQuery('#selectAllMin-help').removeClass('d-none');
