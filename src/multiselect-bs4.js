@@ -283,7 +283,7 @@ jQuery.fn.multiselect = function (options) {
 			var offsets = jQuery(this).data('offset');
 			for (var i = offsets[0]; i <= offsets[1]; i++)
 			{
-				$select.find('option').eq(i - 1).not(':disabled').prop('selected', this.checked);
+				$select.find('option').eq(i - 1).not(':disabled').data('selected', this.checked).prop('selected', this.checked);
 			}
 			selected_count = $select.find('option:selected').length;
 			jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 1);
@@ -303,7 +303,7 @@ jQuery.fn.multiselect = function (options) {
 					}
 					jQuery('#' + select_id + '-dropdown-optgroup-checkbox-' + optgroup).prop('checked', checked);
 				}
-				$select.find('option').eq(offset - 1).prop('selected', this.checked);
+				$select.find('option').eq(offset - 1).data('selected', this.checked).prop('selected', this.checked);
 				selected_count = $select.find('option:selected').length;
 				jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 1);
 				$select.trigger('change');
@@ -316,7 +316,7 @@ jQuery.fn.multiselect = function (options) {
 				var $checkboxes = $dropdown.find('.' + select_id + '-dropdown-item:not(.d-none)').find('.dropdown-checkbox:not([disabled]');
 				$checkboxes.prop('checked', true).each(function () {
 					var offset = jQuery(this).data('offset');
-					$select.find('option').eq(offset - 1).prop('selected', true);
+					$select.find('option').eq(offset - 1).data('selected', true).prop('selected', true);
 				});
 				jQuery('#' + select_id + '-dropdown-badge').text($checkboxes.length).prop('hidden', $checkboxes.length == 0);
 			}
@@ -324,7 +324,7 @@ jQuery.fn.multiselect = function (options) {
 			{
 				$dropdown.find('input.dropdown-checkbox:not([disabled]), input.dropdown-group-checkbox:not([disabled])').prop('checked', this.checked);
 				jQuery('#' + select_id + '-dropdown-badge').text(this.checked ? select_length : 0).prop('hidden', !this.checked);
-				$select.find('option').prop('selected', this.checked && !select_options.selectAllDeselectAll);
+				$select.find('option').data('selected', this.checked).prop('selected', this.checked && !select_options.selectAllDeselectAll);
 			}
 		}).prop('disabled', false);
 		if (select_options.enableCollapsibleOptGroups)
@@ -371,7 +371,23 @@ jQuery.fn.multiselect = function (options) {
 			selected_count = 0;
 			selected_text = [];
 			separator = ', ';
+			var all_selected = true;
 			$select.find('option').each(function (index) {
+				if (this.selected)
+				{
+					jQuery(this).data('selected', true);
+				}
+				else
+				{
+					if (select_options.selectAllDeselectAll && jQuery(this).data('selected'))
+					{
+						this.selected = true;
+					}
+					if (!this.selected)
+					{
+						all_selected = false;
+					}
+				}
 				$dropdown.find('#' + select_id + '-dropdown-checkbox-' + (index + 1)).prop({
 					disabled: this.disabled,
 					checked: this.selected
@@ -400,10 +416,14 @@ jQuery.fn.multiselect = function (options) {
 			jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 2);
 			jQuery('#' + select_id + '-dropdown-btn').toggleClass(['active', 'bg-secondary', 'text-white'], selected_count > 0).toggleClass(['bg-white', 'text-dark'], selected_count < 1).attr('aria-pressed', selected_count > 0);
 			jQuery('#' + select_id + '-reset-btn').prop('disabled', selected_count < 1);
+			if (select_options.selectAllDeselectAll && all_selected)
+			{
+				$select.find('option:selected').prop('selected', false);
+			}
 		});
 
 		jQuery('#' + select_id + '-reset-btn').on('click', function () {
-			$select.find('option:selected:not(:disabled)').prop('selected', false);
+			$select.find('option:selected:not(:disabled)').data('selected', false).prop('selected', false);
 			$dropdown.find('input.dropdown-checkbox').prop('checked', false);
 			jQuery('#' + select_id + '-dropdown-badge').text(0).prop('hidden', true);
 			jQuery('#' + select_id + '-dropdown-btn').toggleClass(['active', 'bg-secondary', 'text-white'], false).toggleClass(['bg-white', 'text-dark'], true).attr('aria-pressed', false);

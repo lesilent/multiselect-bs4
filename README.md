@@ -62,6 +62,19 @@ jQuery('.multiselect').multiselect();
 | `selectAllText` | `'All'` | The text for "Sselect All" option. |
 | `selectAllValue` | `''` | The value for the "Select All" option. |
 
+## Methods
+
+Methods are called using the the `multiselect` function with a string first argument for the option, followed by an optional second argument for the value. If no second argument is pased, then the value of the option is returned instead.
+
+### Example
+```javascript
+// Get the minScreenWidth option
+let minScreenWidth = jQuery('.multiselect').multiselect('minScreenWidth');
+
+// Set the minScreenWidth option
+jQuery('.multiselect').multiselect('minScreenWidth', 768);
+```
+
 ## Demo
 
 <a href="https://lesilent.github.io/multiselect-bs4">Online Demo</a>
