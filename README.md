@@ -6,8 +6,8 @@ multiple select picker for Bootstrap 4
 
 ### Dependencies
 - [jQuery](https://jquery.com/)
-- [Bootstrap](https://getbootstrap.com/) v4
-- [Font Awesome](https://fontawesome.com/) v5
+- [Bootstrap](https://getbootstrap.com/docs/4.6/) v4
+- [Font Awesome](https://fontawesome.com/v5/docs) v5
 
 ### Manual
 
@@ -15,7 +15,6 @@ multiple select picker for Bootstrap 4
 <link href="/path/to/bootstrap.css" rel="stylesheet" />
 <script src="/path/to/jquery.js"></script>
 <script src="/path/to/bootstrap.js"></script>
-<script src="/path/to/regular.js"></script>
 <script src="/path/to/fontawesome.js"></script>
 <script src="/path/to/multiselect-bs4.js"></script>
 ```
@@ -56,11 +55,14 @@ jQuery('.multiselect').multiselect();
 | `enableCollapsibleOptGroups` | `false` | Make optgroups collapsible. |
 | `enableFiltering` | `false` | Enable a search filter to select options with. |
 | `includeSelectAllOption` | `false` | Include an option to "Select All". This is typically disabled because the `includeSelectAllOptionMin` is normally used. |
-| `includeSelectAllOptionMin` | `50` | Minimum number of options that trigger the "Select All" option be enabled. |
-| `minScreenWidth` | `576` | Minimum screen width where multiselect is enabled. |
+| `includeSelectAllOptionMin` | `false` | Minimum number of select options required to trigger the "Select All" option when `includeSelectAllOption` is used. |
 | `selectAllDeselectAll` | `false` | De-select all options if the "Select All" option is selected. |
 | `selectAllText` | `'All'` | The text for "Sselect All" option. |
 | `selectAllValue` | `''` | The value for the "Select All" option. |
+
+### Data Attributes
+
+Options can be passed through JavaScript or via HTML data attributes. To use data attributes, `data-` is followed by the option name with the upper case letters replaced by a dash "`-`" followed by lower case version of the letter. For example, `includeSelectAllOption` becomes `data-include-select-all-option="true"`.
 
 ## Methods
 
@@ -68,11 +70,11 @@ Methods are called using the the `multiselect` function with a string first argu
 
 ### Example
 ```javascript
-// Get the minScreenWidth option
-let minScreenWidth = jQuery('.multiselect').multiselect('minScreenWidth');
+// Get the enableFiltering option
+let enableFiltering = jQuery('.multiselect').multiselect('enableFiltering');
 
-// Set the minScreenWidth option
-jQuery('.multiselect').multiselect('minScreenWidth', 768);
+// Set the enableFiltering option
+jQuery('.multiselect').multiselect('enableFiltering', true);
 ```
 
 ## Demo

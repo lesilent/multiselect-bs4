@@ -4,11 +4,12 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>multiselect-bs4</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
-<script src="js/multiselect-bs4.min.js?" defer="defer"></script>
+<script src="js/multiselect-bs4.js?" defer="defer"></script>
 <style>
 .form-control::placeholder {
 	opacity: 0.5 !important;
@@ -18,203 +19,482 @@
 <body>
 <div class="container py-3">
 <div class="d-flex justify-content-between">
-	<div><h1 class="display-4">mutiselect-bs4</h1></div>
-	<div><a href="https://github.com/lesilent/mutiselect-bs4"><i class="fab fa-github fa-lg m-2"></i></a></div>
+	<div><h1 class="display-4">multiselect-bs4</h1></div>
+	<div><a href="https://github.com/lesilent/multiselect-bs4" title="multiselect-bs4 on GitHub"><i class="fab fa-github fa-lg m-2"></i></a></div>
 </div><!-- /.d-flex -->
 <div class="list-group">
 <div class="list-group-item bg-light font-weight-bolder">Options</div>
 <div class="list-group-item"><form id="custom-form" autocomplete="off" onsubmit="return false">
 <div class="row">
 	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="id">ID:</label>
+		<div class="input-group">
+		<input type="text" id="id" class="form-control options-control" name="id" value="" maxlength="64" />
+		<div class="input-group-append"><button type="button" id="id-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset ID"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="name">Name:</label>
+		<div class="input-group">
+		<input type="text" id="name" class="form-control options-control" name="name" value="" placeholder="multiselect" maxlength="64" autocomplete="off" />
+		<div class="input-group-append"><button type="button" id="name-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Name"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="multiple">Multiple:</label>
+		<select id="multiple" class="form-control options-control" name="multiple" disabled="disabled">
+		<option value="1">Yes</option>
+		<option value="0">No</option>
+		</select>
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="collapsibleOptGroups">Collapsible Optgroups:</label>
+		<div class="input-group">
+		<select id="collapsibleOptGroups" class="form-control options-control" name="collapsibleOptGroups">
+		<option value="0" data-enable-collapsible-opt-groups="false" data-collapse-opt-groups-by-default="false" selected="selected">No</option>
+		<option value="1" data-enable-collapsible-opt-groups="true" data-collapse-opt-groups-by-default="false">Yes (Expanded)</option>
+		<option value="1" data-enable-collapsible-opt-groups="true" data-collapse-opt-groups-by-default="true">Yes (Collapsed)</option>
+		</select>
+		<div class="input-group-append"><button type="button" id="collapsibleOptGroups-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
 		<label for="selectAll">Select All Option:</label>
 		<div class="input-group">
-		<select id="selectAll" class="form-control" name="selectAll" disabled="disabled">
+		<select id="selectAll" class="form-control options-control" name="selectAll" disabled="disabled">
 		<option value="0" data-include-select-all-option-min="false" selected="selected">No</option>
 		<option value="1" data-include-select-all-option-min="false">Yes (Always)</option>
-		<option value="0" data-include-select-all-option-min="true">Yes (&ge; # Options)</option>
+		<option value="1" data-include-select-all-option-min="true">Yes (&ge; # Options)</option>
 		</select>
-		<div class="input-group-append"><button type="button" id="selectAll-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		<div class="input-group-append"><button type="button" id="selectAll-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
 		</div><!-- /.input-group -->
 	</div><!-- /.form-group -->
 	<div class="form-group col-6 col-md-4 col-lg-3">
 		<label for="selectAllMin"># Options for Select All</label>
 		<div class="input-group">
-		<input type="number" id="selectAllMin" class="form-control" name="selectAllMin" value="" min="1" max="9999" pattern="(\d{1,5})?" maxlength="4" readonly="readonly" disabled="disabled" />
-		<div class="input-group-append"><button type="button" id="selectAllMin-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		<input type="number" id="selectAllMin" class="form-control options-control" name="selectAllMin" value="10" min="1" max="9999" pattern="(\d{1,5})?" maxlength="4" readonly="readonly" disabled="disabled" />
+		<div class="input-group-append"><button type="button" id="selectAllMin-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
 		</div><!-- /.input-group -->
 	</div><!-- /.form-group -->
 	<div class="form-group col-6 col-md-4 col-lg-3">
 		<label for="selectAllText">Select All Text:</label>
 		<div class="input-group">
-		<input type="text" id="selectAllText" class="form-control" name="selectAllText" value="" placeholder="All" maxlength="100" readonly="readonly" disabled="disabled" />
-		<div class="input-group-append"><button type="button" id="selectAllText-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		<input type="text" id="selectAllText" class="form-control options-control" name="selectAllText" value="" placeholder="All" maxlength="100" readonly="readonly" disabled="disabled" />
+		<div class="input-group-append"><button type="button" id="selectAllText-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
 		</div><!-- /.input-group -->
 	</div><!-- /.form-group -->
 	<div class="form-group col-6 col-md-4 col-lg-3">
-		<label for="collapsibleOptGroups">Collapsible Optgroups:</label>
+		<label for="selectAllDeselectAll">Select All Deselect All:</label>
 		<div class="input-group">
-		<select id="collapsibleOptGroups" class="form-control" name="collapsibleOptGroups">
-		<option value="0" data-enable-collapsible-opt-groups="false" data-collapse-opt-groups-by-default="false" selected="selected">No</option>
-		<option value="1" data-enable-collapsible-opt-groups="true" data-collapse-opt-groups-by-default="false">Yes (Expanded)</option>
-		<option value="1" data-enable-collapsible-opt-groups="true" data-collapse-opt-groups-by-default="true">Yes (Collapsed)</option>
+		<select id="selectAllDeselectAll" class="form-control options-control" name="selectAllDeselectAll" disabled="disabled">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
 		</select>
-		<div class="input-group-append"><button type="button" id="collapsibleOptGroups-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		<div class="input-group-append"><button type="button" id="selectAllDeselectAll-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
 		</div><!-- /.input-group -->
 	</div><!-- /.form-group -->
 	<div class="form-group col-6 col-md-4 col-lg-3">
 		<label for="filtering">Search Filter:</label>
 		<div class="input-group">
-		<select id="filtering" class="form-control" name="filtering">
+		<select id="filtering" class="form-control options-control" name="filtering">
 		<option value="0" data-enable-filtering="false" data-enable-case-sensitive-filtering="false" selected="selected">No</option>
 		<option value="1" data-enable-filtering="true" data-enable-case-sensitive-filtering="false">Yes (Case-Insensitive)</option>
 		<option value="1" data-enable-filtering="true" data-enable-case-sensitive-filtering="true">Yes (Case-Sensitive)</option>
 		</select>
-		<div class="input-group-append"><button type="button" id="filtering-reset-btn" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>
+		<div class="input-group-append"><button type="button" id="filtering-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
 		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="required">Required:</label>
+		<select id="required" class="form-control options-control" name="required">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+		</select>
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="size">Size:</label>
+		<div class="input-group">
+		<input type="number" id="size" class="form-control options-control" name="size" value="" min="1" max="30" pattern="(\d{1,2})?" maxlength="2" readonly="readonly" />
+		<div class="input-group-append"><button type="button" id="size-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="disabled">Example has Disabled:</label>
+		<div class="input-group">
+		<select id="disabled" class="form-control options-control">
+		<option value="0">No</option>
+		<option value="1">Yes</option>
+		</select>
+		<div class="input-group-append"><button type="button" id="disabled-reset-btn" class="btn btn-outline-secondary" disabled="disabled" title="Reset Option"><i class="far fa-times-circle"></i></button></div>
+		</div><!-- /.input-group -->
+	</div><!-- /.form-group -->
+	<div class="form-group col-6 col-md-4 col-lg-3">
+		<label for="paramtype">Options:</label>
+		<select id="paramtype" class="form-control options-control">
+		<option value="JS">JavaScript</option>
+		<option value="HTML">HTML</option>
+		</select>
 	</div><!-- /.form-group -->
 </div><!-- /.row -->
 </form>
-<div><small class="text-secondary">Note: the example multiselect below has <span id="option-count">X</span> options, so only <code>includeSelectAllOptionMin</code> values less than or equal to this will trigger the select all option to appear.</small></div>
 </div><!-- /.list-group-item -->
 <div class="list-group-item bg-light font-weight-bolder">Result</div>
-<div id="multiselect-result" class="list-group-item">
+<div class="list-group-item">
+	<form id="multiselect-form" class="form-row mb-0" autocomplete="off" onsubmit="return false">
+	<div id="multiselect-result" class="col-10"></div>
+	<div class="col-2"><button type="submit" class="btn btn-primary">Submit</button></div>
+	</form>
 </div><!-- /.list-group-item -->
+<div class="list-group-item bg-light font-weight-bolder">Request</div>
+<div class="list-group-item"><pre class="mb-0"><code id="formdata-body""></code></pre></div>
+<div class="list-group-item bg-light font-weight-bolder">HTML</div>
+<div class="list-group-item"><pre class="mb-0"><code id="multiselect-html"></code></pre></div>
 <div class="list-group-item bg-light font-weight-bolder">JavaScript</div>
-<div class="list-group-item"><pre class="mb-0"><code id="multiselect-javascript">jQuery('select.multiselect').multiselect(<span id="multiselect-params"></span>);</code></pre></div>
+<div class="list-group-item"><pre class="mb-0"><code id="multiselect-javascript">jQuery('select.multiselect-bs4').multiselect(<span id="multiselect-params"></span>);</code></pre></div>
 <div class="list-group-item bg-light font-weight-bolder">Original</div>
 <div class="list-group-item">
-	<select id="multiselect-select-original" class="form-control multiselect-select" name="multiselect[]" multiple="multiple" autocomplete="off">
-	<option value="a">Andrew</option>
-	<option value="a">Alex</option>
-	<optgroup label="Accounting">
-		<option value="b">Bob</option>
-		<option value="c">Charles</option>
-		<option value="d">David</option>
-		<option value="e">Erin</option>
-	</optgroup>
-	<optgroup label="Engineering">
-		<option value="f">Frank</option>
-		<option value="g">Greg</option>
-		<option value="h">Helen</option>
-	</optgroup>
-	<option value="i">Iris</option>
-	<option value="j">John</option>
-	<option value="k" disabled="disabled">Kevin (Disabled)</option>
-	<option value="l">Larry</option>
-	<optgroup label="Marketing">
-		<option value="m" disabled="disabled">Mindy (Disabled)</option>
-		<option value="n">Nathan</option>
-		<option value="o">Opal</option>
-	</optgroup>
-	<optgroup label="Sales (Disabled)" disabled="disabled">
-		<option value="p">Paul</option>
-		<option value="q">Quincy</option>
-		<option value="r">Roger</option>
-		<option value="s">Samuel</option>
-	</optgroup>
-	<optgroup label="Blank"></optgroup>
-	</select>
+<form id="original-form" autocomplete="off">
+<div id="multiselect-original"><select id="multiselect-original-select" class="form-control multiselect-bs4" name="multiselect[]" multiple="multiple" autocomplete="off">
+<option value="a">Andrew</option>
+<option value="a">Alex</option>
+<optgroup label="Accounting">
+	<option value="b">Bob</option>
+	<option value="c">Charles</option>
+	<option value="d">David</option>
+	<option value="e">Erin</option>
+</optgroup>
+<optgroup label="Engineering">
+	<option value="f">Frank</option>
+	<option value="g" class="disabled">Greg</option>
+	<option value="h">Helen</option>
+</optgroup>
+<option value="i">Iris</option>
+<option value="j">John</option>
+<option value="k" class="disabled">Kevin</option>
+<option value="l">Larry</option>
+<optgroup label="Marketing" class="collapsed">
+	<option value="m" class="disabled">Mindy</option>
+	<option value="n" >Nathan</option>
+	<option value="o">Opal</option>
+</optgroup>
+<optgroup label="Sales" class="disabled">
+	<option value="p">Paul</option>
+	<option value="q">Quincy</option>
+	<option value="r">Roger</option>
+	<option value="s">Samuel</option>
+</optgroup>
+<optgroup label="Blank"></optgroup>
+</select></div>
+<div class="text-center mt-2"><button type="submit" class="btn btn-primary">Submit</button></div>
+</form>
 </div><!-- /.list-group-item -->
 </div><!-- /.list-group -->
+
+
+
 </div><!-- /.container -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-	var $mselect = jQuery('#multiselect-select-original').clone().attr('id', 'multiselect-select').appendTo('#multiselect-result').multiselect();
-	var $selectAll = jQuery('#selectAll');
-	var $selectAllReset = jQuery('#selectAll-reset-btn').on('click', function () {
-		jQuery('#' + this.id.substring(0, this.id.length - 10)).prop('selectedIndex', 0).trigger('change');
+jQuery('.test').multiselect();
+
+	function htmlspecialchars(str)
+	{
+		return str.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+	}
+	function optionText(text, disabled)
+	{
+		return (disabled) ? (text + ' (Disabled)') : text.replaceAll(' (Disabled)', '');
+	}
+
+	const $orig_select = jQuery('#multiselect-original-select');
+	const blank_option = '<option class="blank-option" value="">&nbsp;</option>';
+	const html = htmlspecialchars(jQuery('#multiselect-original').clone().html().replace(/\s+(autocomplete|id|multiple|name)=".*?"/g, '').replaceAll(' class="collapsed"', '{cc}').replaceAll(' class="disabled"', '{cd}')).replace(' ', '<span id="multiselect-id"></span><span id="multiselect-name"></span> ').replace('&gt;' , '<span id="multiselect-attribs"> multiple="multiple"</span>&gt;<span id="blank-option" hidden="hidden">\n&lt;option value=""&gt;&amp;nbsp;&lt;option&gt;</span>').replaceAll('{cc}', '<span class="collapsed" hidden="hidden"> data-collapsed=&quot;disabled&quot;</span>').replaceAll('{cd}', '<span class="disabled" hidden="hidden"> disabled=&quot;disabled&quot;</span>').replaceAll("\t", '  ');
+	const $html = jQuery('#multiselect-html').append(html);
+
+	const $mselect = $orig_select.clone().attr('id', 'multiselect-select').appendTo('#multiselect-result').multiselect();
+	$mselect.find('optgroup.collapsed').data('collapsed', true);
+	const $name = jQuery('#name');
+	const $multiple = jQuery('#multiple').prop('disabled', false);
+	const $collapsedOptgroup = $mselect.find('optgroup.collapsed');
+	const collapsedLabel = $collapsedOptgroup.attr('label');
+	const $selectAll = jQuery('#selectAll');
+	const $selectAllReset = jQuery('#selectAll-reset-btn').on('click', function () {
+		$selectAll.prop('selectedIndex', 0).trigger('change');
 		this.disabled = true;
 	});
-	var defaultAllMin = $mselect.multiselect('includeSelectAllOptionMin');
-	var $selectAllMin = jQuery('#selectAllMin').val(defaultAllMin).prop('readOnly', false);
-	var $selectAllMinReset = jQuery('#selectAllMin-reset-btn').on('click', function () {
-		jQuery('#' + this.id.substring(0, this.id.length - 10)).val(defaultAllMin).trigger('change');
+	const $selectAllMin = jQuery('#selectAllMin');
+	const defaultAllMin = $selectAllMin.val();// $mselect.multiselect('includeSelectAllOptionMin');
+	$selectAllMin.prop('readOnly', false);
+	const $selectAllMinReset = jQuery('#selectAllMin-reset-btn').on('click', function () {
+		$selectAllMin.val(defaultAllMin).trigger('change');
 		this.disabled = true;
 	});
-	var $selectText = jQuery('#selectAllText').attr('placeholder', $mselect.multiselect('selectAllText')).prop('readOnly', false);
-	var $selectTextReset = jQuery('#selectAllText-reset-btn').on('click', function () {
-		jQuery('#' + this.id.substring(0, this.id.length - 10)).val('').trigger('change');
+	const minSelectAllMin = parseInt(document.getElementById('selectAllMin').min);
+	const maxSelectAllMin = parseInt(document.getElementById('selectAllMin').max);
+	const $selectText = jQuery('#selectAllText').attr('placeholder', $mselect.multiselect('selectAllText')).prop('readOnly', false);
+	const $selectTextReset = jQuery('#selectAllText-reset-btn').on('click', function () {
+		$selectText.val('').trigger('change');
 		this.disabled = true;
 	});
-	var $collapsibleReset = jQuery('#collapsibleOptGroups-reset-btn').on('click', function () {
-		jQuery('#' + this.id.substring(0, this.id.length - 10)).prop('selectedIndex', 0).trigger('change');
+	const $selectAllDeselectAll = jQuery('#selectAllDeselectAll');
+	const $selectAllDeselectAllReset = jQuery('#selectAllDeselectAll-reset-btn').on('click', function () {
+		$selectAllDeselectAll.prop('selectedIndex', 0).trigger('change');
 		this.disabled = true;
 	});
-	var $filteringReset = jQuery('#filtering-reset-btn').on('click', function () {
-		jQuery('#' + this.id.substring(0, this.id.length - 10)).prop('selectedIndex', 0).trigger('change');
+	const $collapsibleOptGroups = jQuery('#collapsibleOptGroups');
+	const $collapsibleOptGroupsReset = jQuery('#collapsibleOptGroups-reset-btn').on('click', function () {
+		$.prop('selectedIndex', 0).trigger('change');
 		this.disabled = true;
 	});
-	jQuery('#collapsibleOptGroups, #filtering, #selectAll, #selectAllMin, #selectAllText').on('change', function () {
+	const $filtering = jQuery('#filtering');
+	const $filteringReset = jQuery('#filtering-reset-btn').on('click', function () {
+		$filtering.prop('selectedIndex', 0).trigger('change');
+		this.disabled = true;
+	});
+	const $required = jQuery('#required');
+	const $size = jQuery('#size').prop('readOnly', false);
+	const $sizeReset = jQuery('#size-reset-btn').on('click', function () {
+		$size.val('').trigger('change');
+		this.disabled = true;
+	});
+	const minSize = parseInt(document.getElementById('size').min);
+	const maxSize = parseInt(document.getElementById('size').max);
+	const $disabled = jQuery('#disabled');
+	const $disabledReset = jQuery('#disabled-reset-btn').on('click', function () {
+		$filtering.prop('selectedIndex', 0).trigger('change');
+		this.disabled = true;
+	});
+	const $formdata_body = jQuery('#formdata-body');
+	jQuery('.options-control').on('change', function () {
+		if (this.type == 'text')
+		{
+			this.value = this.value.replace(/^\s+|\s+$/, '');
+		}
+		const multiple = ($multiple.val() > 0);
+		const required = ($required.val() > 0);
+		let this_value = this.value;
+		let disabled;
 		switch (this.id)
 		{
+			case 'id':
+				this_value = this_value.replace(/[^\w\-\.:]+/g, '').replace(/^[^a-z]+/i, '');
+				document.getElementById('multiselect-id').textContent = (this_value.length > 0) ? ' id="' + this_value + '"' : '';
+				document.getElementById('id-reset-btn').disabled = !(this_value.length > 0);
+				this.value = this_value;
+				break;
+			case 'name':
+				this_value = this_value.replace(/[^\w\-\.:]+/g, '').replace(/^[^a-z]+/i, '');;
+				document.getElementById('multiselect-name').textContent = (this_value.length > 0) ? ' name="' + this_value + '[]"' : '';
+				document.getElementById('name-reset-btn').disabled = !(this_value.length > 0);
+				this.value = this_value;
+				break;
+			case 'multiple':
+				const name = 'multiselect' + (multiple ? '[]' : '');
+				const has_blank = ($mselect.find('.blank-option').length > 0);
+				$orig_select.prop('multiple', multiple).attr('name', name).find('option:selected:not([diasbled])').prop('selected', false);
+				$mselect.prop('multiple', multiple).attr('name', name).find('option:selected:not([diasbled])').prop('selected', false);
+				if (multiple)
+				{
+					if (has_blank)
+					{
+						$orig_select.find('.blank-option').remove();
+						$mselect.find('.blank-option').remove();
+					}
+					$selectAll.prop('disabled', false);
+					$selectAllDeselectAll.prop('disabled', false);
+				}
+				else
+				{
+					if (!has_blank)
+					{
+						let reset_index = ($orig_select.prop('selectedIndex') < 1);
+						$orig_select.prepend(blank_option);
+						if (reset_index)
+						{
+							$orig_select.prop('selectedIndex', 0);
+						}
+						reset_index = ($mselect.prop('selectedIndex') < 1);
+						$mselect.prepend(blank_option);
+						if (reset_index)
+						{
+							$mselect.prop('selectedIndex', 0);
+						}
+					}
+					$selectAll.prop('selectedIndex', 0).prop('disabled', true).trigger('change');
+					$selectAllReset.prop('disabled', true);
+					$selectAllDeselectAll.prop('selectedIndex', 0).prop('disabled', true);
+					$selectAllDeselectAllReset.prop('disabled', true);
+					$orig_select.prop('selectedIndex', 0);
+					$mselect.prop('selectedIndex', 0);
+
+// argu need to figure out how to reset this better
+
+				}
+				jQuery('#blank-option').prop('hidden', multiple);
+				break;
+			case 'required':
+				$orig_select.prop('required', required);
+				$mselect.prop('required', required);
+				break;
+			case 'size':
+				this_value = this_value.replace(/\D+/g, '');
+				if (this_value.length > 0)
+				{
+					this_value = parseInt(this_value);
+					if (this_value < 0 || this_value < minSize || this_value > maxSize)
+					{
+						this_value = '';
+					}
+				}
+				document.getElementById('size-reset-btn').disabled = (this_value.length < 1);
+				$orig_select.attr('size', this_value);
+				$mselect.attr('size', this_value);
+				this.value = this_value;
+				break;
 			case 'selectAll':
-				var disabled = (this.selectedIndex == 0);
+				disabled = (this.selectedIndex < 1);
 				$selectAllReset.prop('disabled', disabled);
 				$selectText.prop('disabled', disabled);
-				$selectTextReset.prop('disabled', disabled || $selectText.val().length == 0);
+				$selectTextReset.prop('disabled', disabled || $selectText.val().length < 1);
 				disabled = !jQuery(this).find('option:selected').data('include-select-all-option-min');
-				console.log(disabled);
 				$selectAllMin.prop('disabled', disabled);
-				$selectAllMinReset.prop('disabled', disabled || $selectAllMin.val().length == 0);
+				$selectAllMinReset.prop('disabled', disabled || $selectAllMin.val().length < 1);
 				break;
 			case 'selectAllMin':
-				this.value = this.value.replace(/\D+/g, '');
-				document.getElementById('selectAllMin-reset-btn').disabled = (this.value.length == 0);
+				this_value = this_value.replace(/\D+/g, '');
+				if (this_value.length > 0)
+				{
+					this_value = parseInt(this_value);
+					if (this_value < 0)
+					{
+						this_value = '';
+					}
+					else if (this_value > this.max)
+					{
+						this_value = this.max;
+					}
+				}
+				document.getElementById('selectAllMin-reset-btn').disabled = (this_value.length < 1);
+				this.value = this_value;
 				break;
 			case 'selectAllText':
 				this.value = this.value.replace(/^\s+|\s+$/, '');
-				document.getElementById('selectAllText-reset-btn').disabled = (this.value.length == 0);
+				document.getElementById('selectAllText-reset-btn').disabled = (this.value.length < 1);
+				break;
+			case 'selectAllDeselectAll':
+				$selectAllDeselectAllReset.prop('disabled', (this.selectedIndex < 1));
 				break;
 			case 'collapsibleOptGroups':
 			case 'filtering':
-				document.getElementById(this.id + '-reset-btn').disabled = (this.selectedIndex == 0);
+				document.getElementById(this.id + '-reset-btn').disabled = (this.selectedIndex < 1);
+				break;
+			case 'disabled':
+				disabled = (this.value > 0);
+				$disabledReset.prop('disabled', !disabled);
+				$orig_select.find('optgroup.disabled').prop('disabled', disabled).attr('label', function () {
+					return optionText(this.label, disabled);
+				});
+				$orig_select.find('option.disabled').prop('disabled', disabled).find('span.disabled').prop('hidden', !disabled);
+				$mselect.find('option.disabled').prop('disabled', disabled).text(function () {
+					return optionText(this.text, disabled);
+				});
+				$mselect.find('optgroup.disabled').prop('disabled', disabled).attr('label', function () {
+					return optionText(this.label, disabled);
+				});
+				$html.find('.disabled').prop('hidden', !disabled);
 				break;
 		}
-		var options = {};
+		let options = {};
 		if ($selectAll.prop('selectedIndex') > 0)
 		{
 			if ($selectAll.val() > 0)
 			{
 				options.includeSelectAllOption = true;
 			}
-			else if ($selectAll.find('option:selected').data('include-select-all-option-min'))
+			if ($selectAll.find('option:selected').data('include-select-all-option-min'))
 			{
-				var allMin = $selectAllMin.val();
+				const allMin = $selectAllMin.val();
 				if (allMin.length > 0)
 				{
 					options.includeSelectAllOptionMin = parseInt(allMin);
 				}
 			}
-			var allText = $selectText.val();
+			const allText = $selectText.val();
 			if (allText.length > 0)
 			{
 				options.selectAllText = allText;
 			}
+			if ($selectAllDeselectAll.val() > 0)
+			{
+				options.selectAllDeselectAll = true;
+			}
 		}
-		var $optgroups = jQuery('#collapsibleOptGroups').find('option:selected');
-		if ($optgroups.data('enable-collapsible-opt-groups'))
+		const $collapse_option = $collapsibleOptGroups.find('option:selected');
+		if ($collapse_option.data('enable-collapsible-opt-groups'))
 		{
 			options.enableCollapsibleOptGroups = true;
-			if ($optgroups.data('collapse-opt-groups-by-default'))
+			if ($collapse_option.data('collapse-opt-groups-by-default'))
 			{
 				options.collapseOptGroupsByDefault = true;
 			}
 		}
-		var $filtering = jQuery('#filtering').find('option:selected');
-		if ($filtering.data('enable-filtering'))
+		$html.find('.collapsed').prop('hidden', options.enableCollapsibleOptGroups && !options.collapseOptGroupsByDefault);
+		const $filter_option = $filtering.find('option:selected');
+		if ($filter_option.data('enable-filtering'))
 		{
 			options.enableFiltering = true;
-			if (!$filtering.data('enable-case-sensitive-filtering'))
+			if (!$filter_option.data('enable-case-sensitive-filtering'))
 			{
 				options.enableCaseSensitiveFiltering = true;
 			}
 		}
+		$collapsedOptgroup.attr('label', collapsedLabel + (options.collapseOptGroupsByDefault ? '' : ' (Collapsed)'));
 		$mselect.multiselect('dispose').multiselect(options);
-		document.getElementById('multiselect-params').textContent = (Object.keys(options).length > 0) ? JSON.stringify(options, null, "\t").replace(/"([^"]+)":/g, '$1:') : '';
+		const size = $size.val();
+		let attribs = '';
+		for (const [option, value] of Object.entries(options))
+		{
+			attribs += ' data-' + option.replace(/[A-Z]/g, (match) => '-' + match.toLowerCase())
+				+ '="' + ((typeof value == 'string') ? htmlspecialchars(value) : JSON.stringify(value)) + '"';
+		}
+		const paramtype = document.getElementById('paramtype').value;
+		document.getElementById('multiselect-attribs').textContent = (multiple ? ' multiple="multiple"' : '')
+			+ ((size.length > 0) ? ' size="' + size + '"' : '')
+			+ (required ? ' required="required"' : '')
+			+ ((paramtype == 'HTML') ? attribs : '');
+//		document.getElementById('multiselect-collapsed').hidden = !options.enableCollapsibleOptGroups;
+		document.getElementById('multiselect-params').textContent = (paramtype == 'JS' && attribs.length > 0)
+			? JSON.stringify(options, null, "\t").replace(/"([^"]+)":/g, '$1:') : '';
+	});
+	jQuery('#id-reset-btn, #name-reset-btn').on('click', function () {
+		jQuery('#' + this.id.substring(0, this.id.length - 10)).val('').trigger('change');
+		this.disabled = true;
 	});
 	jQuery('#option-count').text($mselect.find('option').length);
 	jQuery('#selectAllMin-help').removeClass('d-none');
+	jQuery('#multiselect-form').on('submit', function () {
+		let body = '';
+		let name = ($name.val().length > 0) ? $name.val() : 'multiselect';
+		if ($multiple.val() > 0)
+		{
+			name += '[]';
+			$mselect.find('option:selected').each(function () {
+				if (jQuery(this).parents('optgroup[disabled]').length < 1)
+				{
+					body += ((body.length > 0) ? '&' : '') + name + '=' + encodeURIComponent(this.value);
+				}
+			});
+		}
+		else
+		{
+			body = name + '=' + encodeURIComponent($mselect.val());
+		}
+		$formdata_body.text(body);
+	}).find('button[type="submit"]').on('click', function () {
+		$formdata_body.empty();
+	});
 	$selectAll.prop('disabled', false);
+	$selectAllDeselectAll.prop('disabled', false);
 });
 </script>
 </body>
