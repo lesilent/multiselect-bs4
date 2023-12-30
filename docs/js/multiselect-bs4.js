@@ -8,26 +8,6 @@
 'use strict';
 
 /**
- * Default options for the current modal being displayed
- *
- * @type {object}
- * @todo add support for additional options
- */
-let settings = {
-	collapseOptGroupsByDefault: false,
-	dropDirection: 'down',
-	enableCaseSensitiveFiltering: false,
-	enableCollapsibleOptGroups: false,
-	enableFiltering: false,
-	includeSelectAllOption: false,
-	includeSelectAllOptionMin: false, // Minimum number of options to automatically enable includeSelectAllOption
-//	maxHeight: '20rem',
-	selectAllDeselectAll: false,  // Deselect all if All is selected
-	selectAllText: 'All',
-	selectAllValue: ''
-};
-
-/**
  * Flag for whether plugin has been initialized
  *
  * @type {boolean}
@@ -201,40 +181,39 @@ jQuery.fn.multiselect = function (options) {
 	{
 		options = {};
 	}
-	const js_options = jQuery.extend({}, options);
+	const common_options = jQuery.extend({}, jQuery.fn.multiselect.defaults, options);
 
 	// Initialize the inputs
 	return this.each(function () {
 		const $select = jQuery(this);
-		const select_id = this.id || 'select-' + Math.floor(Math.random() * 1000000 + 1);
-		if (!this.id)
+
+		// Get select id
+		let select_id = this.id;
+		if (this.id)
 		{
+
+		}
+		else
+		{
+			select_id = 'select-' + Math.floor(Math.random() * 1000000 + 1);
 			this.id = select_id;
 		}
 		const multiple = this.multiple;
-		const required = this.required;
 
-		// Get options from data-* attributes
-		let data_options = {};
-		for (const option in settings)
+		// Process options
+		let select_options = jQuery.extend(true, {}, common_options);
+		for (const option in jQuery.fn.multiselect.defaults)
 		{
-			const option_value = $select.data(option);
-			if (typeof option_value != 'undefined')
+			let option_value = $select.data(option);
+			if (typeof option_value != 'undefined' && !(option == 'selectAllText' && !option_value))
 			{
-				data_options[option] = option_value;
+				if (option == 'includeSelectAllOptionMin')
+				{
+					option_value = (typeof option_value == 'string' && option_value.length < 1) ? false : parseInt(option_value);
+				}
+				select_options[option] = option_value;
 			}
 		}
-
-		// Define options for select
-		let select_options = jQuery.extend({}, settings, data_options, js_options);
-		if (!select_options.selectAllText)
-		{
-			select_options.selectAllText = settings.selectAllText;
-		}
-		select_options.includeSelectAllOptionMin = (typeof select_options.includeSelectAllOptionMin == 'string'
-			&& select_options.includeSelectAllOptionMin.length < 1)
-			? settings.includeSelectAllOptionMin
-			: parseInt(select_options.includeSelectAllOptionMin);
 		$select.data('options', select_options);
 
 		// Add dropdown html
@@ -252,12 +231,12 @@ jQuery.fn.multiselect = function (options) {
 			+ '</div>'
 			+ '</button>'
 			+ '<div id="' + select_id + '-dropdown-menu" class="dropdown-menu overflow-auto py-0 w-100'
-			+ (($select.offset().left > window.innerWidth / 2) ? ' dropdown-menu-right' : '')
+			+ (($select.offset().left > window.innerWidth - 300) ? ' dropdown-menu-right' : '')
 			+ '" aria-labelledby="' + select_id + '-dropdown-btn" style="overflow-y:scroll; max-height:' + max_height + ';">';
 		if (select_options.enableFiltering)
 		{
 			html += '<div class="dropdown-item-text px-2"><div class="input-group">'
-				+ '<div class="input-group-prepend"><span id="' + select_id + '-search" class="input-group-text"><i class="fas fa-search"></i></div>'
+				+ '<div class="input-group-prepend"><span id="' + select_id + '-search" class="input-group-text"><i class="fas fa-search"></i></span></div>'
 				+ '<input type="text" id="' + select_id + '-search-input" class="form-control" autocomplete="off" aria-describedby="' + select_id + '-search" />'
 				+ '<div class="input-group-append"><button type="button" id="' + select_id + '-search-reset" class="btn btn-outline-secondary"><i class="far fa-times-circle"></i></button></div>'
 				+ '</div></div>';
@@ -342,7 +321,16 @@ jQuery.fn.multiselect = function (options) {
 		html += '</div>'
 			+ '<button type="button" id="' + select_id + '-reset-btn" class="btn btn-outline-secondary bg-white text-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button>'
 			+ '</div>';
-		$select.addClass('d-none multiselect-bs4').after(html);
+		if ($select.data('multiselect'))
+		{
+			// If multiselect is already initialized, then update html and select
+			jQuery('#' + select_id + '-multiselect-div').replaceWith(html);
+			updateSelect($select);
+		}
+		else
+		{
+			$select.data('multiselect', true).addClass('d-none multiselect').after(html);
+		}
 
 		// Update dropdown label
 		const $dropdown = jQuery('#' + select_id + '-multiselect-div');
@@ -525,6 +513,26 @@ jQuery.fn.multiselect = function (options) {
 			$inputs.prop('disabled', true);
 		});
 	});
+};
+
+/**
+ * Default options for the current modal being displayed
+ *
+ * @type {object}
+ * @todo add support for additional options
+ */
+jQuery.fn.multiselect.defaults = {
+	collapseOptGroupsByDefault: false,
+	dropDirection: 'down',
+	enableCaseSensitiveFiltering: false,
+	enableCollapsibleOptGroups: false,
+	enableFiltering: false,
+	includeSelectAllOption: false,
+	includeSelectAllOptionMin: false, // Minimum number of options to automatically enable includeSelectAllOption
+//	maxHeight: '20rem',
+	selectAllDeselectAll: false,  // Deselect all if All is selected
+	selectAllText: 'All',
+	selectAllValue: ''
 };
 
 //-------------------------------------
