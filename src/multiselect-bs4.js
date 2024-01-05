@@ -109,7 +109,7 @@ jQuery.fn.multiselect = function (options) {
 		{
 			case 'dispose':
 				jQuery('#' + this.attr('id') + '-multiselect-div').remove();
-				this.data('options', null).toggleClass('d-none', false);
+				this.data('options', null).data('multiselect', null).removeClass('d-none multiselect');
 				break;
 			case 'collapseOptGroupsByDefault':
 			case 'enableCaseSensitiveFiltering':
@@ -459,7 +459,7 @@ jQuery.fn.multiselect = function (options) {
 		{
 			jQuery('#' + select_id + '-search-reset').on('click', function () {
 				document.getElementById(select_id + '-search-input').value = '';
-				$dropdown.find('.' + select_id + '-dropdown-item').toggleClass('d-none', false);
+				$dropdown.find('.' + select_id + '-dropdown-item').removeClass('d-none');
 			});
 			jQuery('#' + select_id + '-search-input').on('keyup', function (e) {
 				let search_text = this.value.replace(/^\s+|\s+$/g, '');
@@ -479,7 +479,7 @@ jQuery.fn.multiselect = function (options) {
 				}
 				else
 				{
-					$dropdown.find('.' + select_id + '-dropdown-item').toggleClass('d-none', false);
+					$dropdown.find('.' + select_id + '-dropdown-item').removeClass('d-none');
 				}
 			}).prop('disabled', false);
 		}
@@ -508,9 +508,16 @@ jQuery.fn.multiselect = function (options) {
 		});
 
 		// Trigger change on page show so that drop down gets updated when back button gets pressed; and disable inputs so they don't submit values
-		jQuery(window).on('pageshow', function () {
-			updateSelect($select);
-			$inputs.prop('disabled', true);
+		window.addEventListener('pageshow', (event) => {
+			const navigation = window.performance.getEntriesByType('navigation');
+			if (navigation.length > 0 && navigation[0].type == 'back_forward')
+			{
+				if ($select.find('option:selected').length > 0)
+				{
+					updateSelect($select);
+				}
+				$inputs.prop('disabled', true);
+			}
 		});
 	});
 };
