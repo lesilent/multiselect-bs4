@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 	const $collapsibleOptGroups = jQuery('#collapsibleOptGroups');
 	const $collapsibleOptGroupsReset = jQuery('#collapsibleOptGroups-reset-btn').on('click', function () {
-		$.prop('selectedIndex', 0).trigger('change');
+		$collapsibleOptGroups.prop('selectedIndex', 0).trigger('change');
 		this.disabled = true;
 	});
 	const $filtering = jQuery('#filtering');
@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const maxSize = parseInt(document.getElementById('size').max);
 	const $disabled = jQuery('#disabled');
 	const $disabledReset = jQuery('#disabled-reset-btn').on('click', function () {
-		$filtering.prop('selectedIndex', 0).trigger('change');
+		$disabled.prop('selectedIndex', 0).trigger('change');
 		this.disabled = true;
 	});
 	const $formdata_body = jQuery('#formdata-body');
@@ -393,10 +393,10 @@ document.addEventListener('DOMContentLoaded', function () {
 					return optionText(this.label, disabled);
 				});
 				$orig_select.find('option.disabled').prop('disabled', disabled).find('span.disabled').prop('hidden', !disabled);
-				$mselect.find('option.disabled').prop('disabled', disabled).text(function () {
+				$mselect.find('option.disabled').prop('disabled', disabled).prop('hidden', !disabled).text(function () {
 					return optionText(this.text, disabled);
 				});
-				$mselect.find('optgroup.disabled').prop('disabled', disabled).attr('label', function () {
+				$mselect.find('optgroup.disabled').prop('disabled', disabled).prop('hidden', !disabled).attr('label', function () {
 					return optionText(this.label, disabled);
 				});
 				$html.find('.disabled').prop('hidden', !disabled);

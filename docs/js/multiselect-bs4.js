@@ -238,7 +238,7 @@ jQuery.fn.multiselect = function (options) {
 			html += '<div class="dropdown-item-text px-2"><div class="input-group">'
 				+ '<div class="input-group-prepend"><span id="' + select_id + '-search" class="input-group-text"><i class="fas fa-search"></i></span></div>'
 				+ '<input type="text" id="' + select_id + '-search-input" class="form-control" autocomplete="off" aria-describedby="' + select_id + '-search" />'
-				+ '<div class="input-group-append"><button type="button" id="' + select_id + '-search-reset" class="btn btn-outline-secondary"><i class="far fa-times-circle"></i></button></div>'
+				+ '<div class="input-group-append"><button type="button" id="' + select_id + '-search-reset" class="btn btn-outline-secondary" disabled="disabled"><i class="far fa-times-circle"></i></button></div>'
 				+ '</div></div>';
 		}
 		if (multiple && select_options.includeSelectAllOption && (!select_options.includeSelectAllOptionMin || this.options.length >= select_options.includeSelectAllOptionMin))
@@ -251,10 +251,12 @@ jQuery.fn.multiselect = function (options) {
 
 		// Add dropdown items
 		const itype = multiple ? 'checkbox' : 'radio';
-		var first_option_blank = null;
+		let first_option_blank = null;
+		let update = false;
 		let i = 1;
 		$select.children('option,optgroup').each(function () {
 			const disabled = this.disabled;
+			const hidden = this.hidden;
 			let input_id;
 			if (this.tagName.toLowerCase() == 'optgroup')
 			{
@@ -266,7 +268,7 @@ jQuery.fn.multiselect = function (options) {
 				const collapse_id = select_id + '-dropdown-collapse-' + i;
 				input_id = select_id + '-dropdown-optgroup-' + itype + '-' + i;
 				html += '<div class="border-top border-bottom"><div class="dropdown-item-text px-2 text-nowrap' + (select_options.enableCollapsibleOptGroups ? ' collapse-toggle' : '') + '">'
-					+ '<label class="mb-0 font-weight-bolder' + (select_options.enableCollapsibleOptGroups ? '' : ' d-block') + '' + (disabled ? ' text-muted' : '') + '" for="' + input_id + '">'
+					+ '<label class="mb-0 font-weight-bolder user-select-none' + (select_options.enableCollapsibleOptGroups ? '' : ' d-block') + '' + (disabled ? ' text-muted' : '') + '" for="' + input_id + '">'
 					+ '<input type="' + itype + '" id="' + input_id + '" class="' + ((options_length > 0) ? 'dropdown-group-' + itype : '') + ((disabled || options_length < 1) ? ' disabled' : '') + '"' + (multiple ? '' : ' name="' + select_id + '__"') + ((options_length > 0 && $options.filter(':selected').length == options_length) ? ' checked="checked"' : '') + ((disabled || options_length < 1) ? ' disabled="disabled"' : '') + ((multiple || select_options.enableCollapsibleOptGroups) ? '' : ' hidden="hidden"') + ' data-offset="[' + i + ',' + end_i + ']" /> '
 					+ htmlEncode(this.label) + '</label>'
 					+ ((select_options.enableCollapsibleOptGroups && options_length > 0) ? '<a class="collapse-toggle d-inline-block text-body w-100" href="javascript:void(0)" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="' + collapse_id + '"><i class="caret"></i></a>' : '')
@@ -295,14 +297,19 @@ jQuery.fn.multiselect = function (options) {
 				*/
 				$options.each(function () {
 					const opt_disabled = (disabled || this.disabled);
+					const opt_hidden = (hidden || this.hidden);
 					input_id = select_id + '-dropdown-' + itype + '-' + i;
-					html += '<div id="' + select_id + '-dropdown-item-' + i + '" class="dropdown-item-text text-nowrap px-2 ' + select_id + '-dropdown-item">'
-						+ '<label class="mb-0 d-block pl-3' + (opt_disabled ? ' text-muted' : '') + '" for="' + input_id + '">'
+					html += '<div id="' + select_id + '-dropdown-item-' + i + '" class="dropdown-item-text text-nowrap px-2 ' + select_id + '-dropdown-item"' + (opt_hidden ? ' hidden="hidden"' : '') + '>'
+						+ '<label class="mb-0 d-block pl-3 user-select-none' + (opt_disabled ? ' text-muted' : '') + '" for="' + input_id + '">'
 						+ '<input type="' + itype + '" id="' + input_id + '" class="dropdown-' + itype + (opt_disabled ? ' disabled' : '') + '"' + (multiple ? '' : ' name="' + select_id + '_"') + ' value="' + htmlEncode(this.value) + '" data-offset="' + i + '" data-optgroup="' + optgroup_i + '"' + (this.selected ? ' checked="checked"' : '') + (opt_disabled ? ' disabled="disabled"' : '') + ' autocomplete="off" /> '
 						+ htmlEncode(this.text) + '</label></div>';
 					if (first_option_blank === null && !opt_disabled &&  this.value === '')
 					{
 						first_option_blank = true;
+					}
+					if (this.selected)
+					{
+						update = true;
 					}
 					i++;
 				});
@@ -311,10 +318,14 @@ jQuery.fn.multiselect = function (options) {
 			else
 			{
 				input_id = select_id + '-dropdown-' + itype + '-' + i;
-				html += '<div id="' + select_id + '-dropdown-item-' + i + '" class="dropdown-item-text text-nowrap px-2 ' + select_id + '-dropdown-item">'
-					+ '<label class="mb-0 d-block' + (disabled ? ' text-muted' : '') + '" for="' + input_id + '">'
+				html += '<div id="' + select_id + '-dropdown-item-' + i + '" class="dropdown-item-text text-nowrap px-2 ' + select_id + '-dropdown-item"' + (hidden ? ' hidden="hidden"' : '') + '>'
+					+ '<label class="mb-0 d-block user-select-none' + (disabled ? ' text-muted' : '') + '" for="' + input_id + '">'
 					+ '<input type="' + itype + '" id="' + input_id + '" class="dropdown-' + itype + (disabled ? ' disabled' : '') + '"' + (multiple ? '' : ' name="' + select_id + '_"') + ' value="' + htmlEncode(this.value) + '" data-offset="' + i + '"' + (this.selected ? ' checked="checked"' : '') + (disabled ? ' disabled="disabled"' : '') + ' autocomplete="off" /> '
 					+ htmlEncode(this.text) + '</label></div>';
+				if (this.selected)
+				{
+					update = true;
+				}
 				i++;
 			}
 		});
@@ -325,7 +336,7 @@ jQuery.fn.multiselect = function (options) {
 		{
 			// If multiselect is already initialized, then update html and select
 			jQuery('#' + select_id + '-multiselect-div').replaceWith(html);
-			updateSelect($select);
+			update = true;
 		}
 		else
 		{
@@ -457,9 +468,10 @@ jQuery.fn.multiselect = function (options) {
 		}
 		if (select_options.enableFiltering)
 		{
-			jQuery('#' + select_id + '-search-reset').on('click', function () {
+			const $searchResetBtn = jQuery('#' + select_id + '-search-reset').on('click', function () {
 				document.getElementById(select_id + '-search-input').value = '';
 				$dropdown.find('.' + select_id + '-dropdown-item').removeClass('d-none');
+				this.disabled = true;
 			});
 			jQuery('#' + select_id + '-search-input').on('keyup', function (e) {
 				let search_text = this.value.replace(/^\s+|\s+$/g, '');
@@ -476,10 +488,12 @@ jQuery.fn.multiselect = function (options) {
 							? label_text.indexOf(search_text)
 							: label_text.toLowerCase().indexOf(search_text)) < 0);
 					});
+					$searchResetBtn.prop('disabled', false);
 				}
 				else
 				{
 					$dropdown.find('.' + select_id + '-dropdown-item').removeClass('d-none');
+					$searchResetBtn.prop('disabled', true);
 				}
 			}).prop('disabled', false);
 		}
@@ -506,6 +520,12 @@ jQuery.fn.multiselect = function (options) {
 		$select.on('change', function () {
 			return updateSelect($select);
 		});
+
+		// Update select
+		if (update)
+		{
+			updateSelect($select);
+		}
 
 		// Trigger change on page show so that drop down gets updated when back button gets pressed; and disable inputs so they don't submit values
 		window.addEventListener('pageshow', (event) => {
