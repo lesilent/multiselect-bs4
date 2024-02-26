@@ -422,10 +422,10 @@ document.addEventListener('DOMContentLoaded', function () {
 			{
 				options.selectAllText = allText;
 			}
-			if ($selectAllDeselectAll.val() > 0)
-			{
-				options.selectAllDeselectAll = true;
-			}
+		}
+		if ($selectAllDeselectAll.val() > 0)
+		{
+			options.selectAllDeselectAll = true;
 		}
 		const $collapse_option = $collapsibleOptGroups.find('option:selected');
 		if ($collapse_option.data('enable-collapsible-opt-groups'))

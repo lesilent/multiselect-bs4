@@ -74,7 +74,7 @@ function updateSelect($select)
 	const active = (multiple && selected_count > 0) || (!multiple && ($select[0].selectedIndex > 0 || $select[0].value.length > 0));
 	jQuery('#' + select_id + '-dropdown-checkbox-all').prop('checked', all_selected);
 	jQuery('#' + select_id + '-dropdown-label').prop('hidden', active);
-	jQuery('#' + select_id + '-dropdown-text').text(all_selected ? options.selectAllText : selected_text.join(separator || ', ')).prop('hidden', !active);
+	jQuery('#' + select_id + '-dropdown-text').text((all_selected && !options.selectAllDeselectAll) ? options.selectAllText : selected_text.join(separator || ', ')).prop('hidden', !active);
 	jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 2);
 	jQuery('#' + select_id + '-dropdown-btn').toggleClass(['active', 'bg-secondary', 'text-white'], active).toggleClass(['bg-white', 'text-dark'], !active).attr('aria-pressed', active);
 	jQuery('#' + select_id + '-reset-btn').prop('disabled', !active || (!multiple && $select[0].selectedIndex < 1));
