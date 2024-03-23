@@ -74,7 +74,7 @@ function updateSelect($select)
 	const active = (multiple && selected_count > 0) || (!multiple && ($select[0].selectedIndex > 0 || $select[0].value.length > 0));
 	jQuery('#' + select_id + '-dropdown-checkbox-all').prop('checked', all_selected);
 	jQuery('#' + select_id + '-dropdown-label').prop('hidden', active);
-	jQuery('#' + select_id + '-dropdown-text').text((all_selected && !options.selectAllDeselectAll) ? options.selectAllText : selected_text.join(separator || ', ')).prop('hidden', !active);
+	jQuery('#' + select_id + '-dropdown-text').text((all_selected && options.selectAllDeselectAll) ? options.selectAllText : selected_text.join(separator || ', ')).prop('hidden', !active);
 	jQuery('#' + select_id + '-dropdown-badge').text(selected_count).prop('hidden', selected_count < 2);
 	jQuery('#' + select_id + '-dropdown-btn').toggleClass(['active', 'bg-secondary', 'text-white'], active).toggleClass(['bg-white', 'text-dark'], !active).attr('aria-pressed', active);
 	jQuery('#' + select_id + '-reset-btn').prop('disabled', !active || (!multiple && $select[0].selectedIndex < 1));
@@ -184,6 +184,7 @@ jQuery.fn.multiselect = function (options) {
 	const common_options = jQuery.extend({}, jQuery.fn.multiselect.defaults, options);
 
 	// Initialize the inputs
+	const $body = jQuery('body');
 	return this.each(function () {
 		const $select = jQuery(this);
 
@@ -352,7 +353,7 @@ jQuery.fn.multiselect = function (options) {
 		}
 
 		// Stop clicks from closing dropdown and other event handlers
-		$dropdown.find('#' + select_id + '-dropdown-menu').on('click', function (e) {
+		const $dropdown_menu = $dropdown.find('#' + select_id + '-dropdown-menu').on('click', function (e) {
 			e.stopPropagation();
 		});
 
@@ -360,6 +361,7 @@ jQuery.fn.multiselect = function (options) {
 		const $dropdown_btn = jQuery('#' + select_id + '-dropdown-btn').on('click', function () {
 			$dropdown_btn.removeClass('border-danger');
 		});
+
 		let submit_func;
 		if (multiple)
 		{
@@ -511,6 +513,15 @@ jQuery.fn.multiselect = function (options) {
 			$inputs.prop('disabled', false);
 		}).on('hide.bs.dropdown', function () {
 			$inputs.prop('disabled', true);
+		});
+		$dropdown.on('shown.bs.dropdown', function () {
+			if ($dropdown_menu.data('detached'))
+			{
+				return;
+			}
+			$body.append($dropdown_menu.data('detached', 1).css({
+				'max-width': $dropdown_menu.width()
+			}).detach());
 		});
 
 		// Set options under diabled optgroups to be disabled
