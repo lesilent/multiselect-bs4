@@ -54,10 +54,12 @@ function updateSelect($select)
 				all_selected = false;
 			}
 		}
-		jQuery('#' + select_id + '-dropdown-checkbox-' + (index + 1) + ', #' + select_id + '-dropdown-radio-' + (index + 1)).prop({
-			disabled: this.disabled,
-			checked: this.selected
-		});
+		const input = document.getElementById(select_id + '-dropdown-' + (multiple ? 'checkbox' : 'radio') + '-' + (index + 1));
+		if (input)
+		{
+			input.disabled = this.disabled;
+			input.checked = this.selected;
+		}
 		if (this.selected || (multiple && $option.data('selected')))
 		{
 			selected_count++;
