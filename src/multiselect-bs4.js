@@ -485,7 +485,7 @@ jQuery.fn.multiselect = function (options) {
 				}
 				if (search_text.length > 0)
 				{
-					$dropdown.find('.' + select_id + '-dropdown-item').each(function () {
+					$dropdown_menu.find('.' + select_id + '-dropdown-item').each(function () {
 						const $item = jQuery(this);
 						const label_text = $item.text();
 						$item.toggleClass('d-none', (select_options.enableCaseSensitiveFiltering
@@ -496,7 +496,7 @@ jQuery.fn.multiselect = function (options) {
 				}
 				else
 				{
-					$dropdown.find('.' + select_id + '-dropdown-item').removeClass('d-none');
+					$dropdown_menu.find('.' + select_id + '-dropdown-item').removeClass('d-none');
 					$searchResetBtn.prop('disabled', true);
 				}
 			}).prop('disabled', false);
