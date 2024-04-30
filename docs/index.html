@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		if ($filter_option.data('enable-filtering'))
 		{
 			options.enableFiltering = true;
-			if (!$filter_option.data('enable-case-sensitive-filtering'))
+			if ($filter_option.data('enable-case-sensitive-filtering'))
 			{
 				options.enableCaseSensitiveFiltering = true;
 			}
