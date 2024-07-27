@@ -527,29 +527,33 @@ jQuery.fn.multiselect = function (options) {
 		}).on('hide.bs.dropdown', function () {
 			$inputs.prop('disabled', true);
 		});
-		$dropdown.on('shown.bs.dropdown', function () {
-			if ($dropdown_menu.data('detached'))
-			{
-				return;
-			}
-			$body.append($dropdown_menu.data('detached', 1).css({
-				'max-width': $dropdown_menu.width()
-			}).detach());
+		if ($dropdown.parents('.modal').length < 1)
+		{
+			// If drop down isn't in a modal, then detach menu and put in body
+			$dropdown.on('shown.bs.dropdown', function () {
+				if ($dropdown_menu.data('detached'))
+				{
+					return;
+				}
+				$body.append($dropdown_menu.data('detached', 1).css({
+					'max-width': $dropdown_menu.width()
+				}).detach());
 
-			// Add MutationObserver to remove dropdown menu if dropdown goes away
-			if (typeof MutationObserver == 'function')
-			{
-				const observer = new MutationObserver((mutationList, observer) => {
-					if (!document.contains($select[0]))
-					{
-						observer.disconnect();
-						$dropdown_menu.remove();
-						$dropdown.remove();
-					}
-				});
-				observer.observe(document, { childList: true, subtree:true });
-			}
-		});
+				// Add MutationObserver to remove dropdown menu if dropdown goes away
+				if (typeof MutationObserver == 'function')
+				{
+					const observer = new MutationObserver((mutationList, observer) => {
+						if (!document.contains($select[0]))
+						{
+							observer.disconnect();
+							$dropdown_menu.remove();
+							$dropdown.remove();
+						}
+					});
+					observer.observe(document, { childList: true, subtree:true });
+				}
+			});
+		}
 
 		// Set options under diabled optgroups to be disabled
 		$select.find('optgroup[disabled] > option:not([disabled])').prop('disabled', true);
