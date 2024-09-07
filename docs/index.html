@@ -189,9 +189,6 @@
 </form>
 </div><!-- /.list-group-item -->
 </div><!-- /.list-group -->
-
-
-
 </div><!-- /.container -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -472,25 +469,26 @@ document.addEventListener('DOMContentLoaded', function () {
 	jQuery('#selectAllMin-help').removeClass('d-none');
 	jQuery('#multiselect-form').on('submit', function () {
 		let body = '';
-		let name = ($name.val().length > 0) ? $name.val() : 'multiselect';
-		if ($multiple.val() > 0)
+		if (!$mselect.prop('disabled'))
 		{
-			name += '[]';
-			$mselect.find('option:selected').each(function () {
-				if (jQuery(this).parents('optgroup[disabled]').length < 1)
-				{
-					body += ((body.length > 0) ? '&' : '') + name + '=' + encodeURIComponent(this.value);
-				}
-			});
-		}
-		else
-		{
-			body = name + '=' + encodeURIComponent($mselect.val());
+			let name = ($name.val().length > 0) ? $name.val() : 'multiselect';
+			if ($multiple.val() > 0)
+			{
+				name += '[]';
+				$mselect.find('option:selected').each(function () {
+					if (jQuery(this).parents('optgroup[disabled]').length < 1)
+					{
+						body += ((body.length > 0) ? '&' : '') + name + '=' + encodeURIComponent(this.value);
+					}
+				});
+			}
+			else
+			{
+				body = name + '=' + encodeURIComponent($mselect.val());
+			}
 		}
 		$formdata_body.text(body);
-	}).find('button[type="submit"]').on('click', function () {
-		$formdata_body.empty();
-	});
+	}).find('button[type="submit"]').on('click', () => $formdata_body.empty());
 	$selectAll.prop('disabled', false);
 	$selectAllDeselectAll.prop('disabled', false);
 });
