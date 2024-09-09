@@ -443,7 +443,7 @@ jQuery.fn.multiselect = function (options) {
 			}
 		}).prop('disabled', false);
 		$dropdown.on('hide.bs.dropdown', function () {
-			if ($searchInput.val().length > 0)
+			if (select_options.enableFiltering && $searchInput.val().length > 0)
 			{
 				$searchInput.val('').triggerHandler('keyup');
 			}
