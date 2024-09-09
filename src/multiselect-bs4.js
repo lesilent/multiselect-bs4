@@ -407,20 +407,56 @@ jQuery.fn.multiselect = function (options) {
 		}
 
 		// Stop clicks from closing dropdown and other event handlers
-		const $dropdown_menu = $dropdown.find('#' + prefix + '-dropdown-menu').on('click', (e) => e.stopPropagation());
+		const $dropdownMenu = $dropdown.find('#' + prefix + '-dropdown-menu').on('click', (e) => e.stopPropagation());
 
 		// Add event handlers
-		const $dropdown_btn = jQuery('#' + prefix + '-dropdown-btn').on('click', () => $dropdown_btn.removeClass('border-danger'));
+		const $searchInput = jQuery('#' + prefix + '-search-input');
+		const $searchResetBtn = jQuery('#' + prefix + '-search-reset').on('click', function () {
+			$searchInput.val('').triggerHandler('keyup');
+			this.disabled = true;
+		});
+		$searchInput.on('keyup', function (e) {
+			let search_text = this.value.replace(/^\s+|\s+$/g, '');
+			if (!select_options.enableCaseSensitiveFiltering)
+			{
+				search_text = search_text.toLowerCase();
+			}
+			if (search_text.length > 0)
+			{
+				$dropdownMenu.find('.' + prefix + '-dropdown-item').each(function () {
+					const $item = jQuery(this);
+					const label_text = $item.text();
+					$item.toggleClass('d-none', (select_options.enableCaseSensitiveFiltering
+						? label_text.indexOf(search_text)
+						: label_text.toLowerCase().indexOf(search_text)) < 0);
+				});
+				$dropdownMenu.find('.' + prefix + '-dropdown-toggle').each(function () {
+					const $toggle = jQuery(this);
+					$toggle.toggleClass('d-none', $toggle.find('.' + prefix + '-dropdown-item:not(.d-none)').length < 1);
+				});
+				$searchResetBtn.prop('disabled', false);
+			}
+			else
+			{
+				$dropdownMenu.find('.' + prefix + '-dropdown-toggle, .' + prefix + '-dropdown-item').removeClass('d-none');
+				$searchResetBtn.prop('disabled', true);
+			}
+		}).prop('disabled', false);
+		$dropdown.on('hide.bs.dropdown', function () {
+			if ($searchInput.val().length > 0)
+			{
+				$searchInput.val('').triggerHandler('keyup');
+			}
+		});
+		const $dropdownBtn = jQuery('#' + prefix + '-dropdown-btn').on('click', () => $dropdownBtn.removeClass('border-danger'));
 
 		let submit_func;
 		if (multiple)
 		{
 			$dropdown.find('input.dropdown-group-checkbox').on('click', function () {
-				const checked = this.checked;
 				const offsets = jQuery(this).data('offset');
 				$select.find('option').slice(offsets[0] - 1, offsets[1]).not(':disabled').data('selected', this.checked).prop('selected', this.checked);
 				$select.trigger('change');
-			//	this.checked = checked;
 			});
 			$dropdown.find('input.dropdown-checkbox').on('click', function () {
 				const offset = jQuery(this).data('offset');
@@ -437,7 +473,7 @@ jQuery.fn.multiselect = function (options) {
 				}
 			});
 			$dropdown.find('#' + prefix + '-dropdown-checkbox-all').on('click', function () {
-				if (this.checked && select_options.enableFiltering && document.getElementById(prefix + '-search-input').value.length > 0)
+				if (this.checked && select_options.enableFiltering && $searchInput.val().length > 0)
 				{
 					// Handle when all is checked with filtering
 					$dropdown.find('.' + prefix + '-dropdown-item:not(.d-none)').find('.dropdown-checkbox:not([disabled]').prop('checked', true).each(function () {
@@ -454,7 +490,7 @@ jQuery.fn.multiselect = function (options) {
 			$dropdown.find('#' + prefix + '-dropdown-checkbox-all-label').text(select_options.selectAllText);
 			submit_func = function () {
 				const empty = ($select.find('option:selected').length < 1);
-				$dropdown_btn.toggleClass('border-danger', empty);
+				$dropdownBtn.toggleClass('border-danger', empty);
 				if (empty)
 				{
 					return false;
@@ -500,7 +536,7 @@ jQuery.fn.multiselect = function (options) {
 					}
 					else
 					{
-						$dropdown_menu.find('input.dropdown-group-radio:checked').prop('checked', false);
+						$dropdownMenu.find('input.dropdown-group-radio:checked').prop('checked', false);
 					}
 					$select.find('option').eq(offset - 1).not(':disabled').data('selected', this.checked).prop('selected', this.checked);
 					$select.trigger('change');
@@ -508,7 +544,7 @@ jQuery.fn.multiselect = function (options) {
 			});
 			submit_func = function () {
 				const empty = ($select.val().length < 1);
-				$dropdown_btn.toggleClass('border-danger', empty);
+				$dropdownBtn.toggleClass('border-danger', empty);
 				if (empty)
 				{
 					return false;
@@ -527,38 +563,7 @@ jQuery.fn.multiselect = function (options) {
 		}
 		if (select_options.enableFiltering)
 		{
-			const $searchResetBtn = jQuery('#' + prefix + '-search-reset').on('click', function () {
-				document.getElementById(prefix + '-search-input').value = '';
-				$dropdown_menu.find('.' + prefix + '-dropdown-toggle, .' + prefix + '-dropdown-item').removeClass('d-none');
-				this.disabled = true;
-			});
-			jQuery('#' + prefix + '-search-input').on('keyup', function (e) {
-				let search_text = this.value.replace(/^\s+|\s+$/g, '');
-				if (!select_options.enableCaseSensitiveFiltering)
-				{
-					search_text = search_text.toLowerCase();
-				}
-				if (search_text.length > 0)
-				{
-					$dropdown_menu.find('.' + prefix + '-dropdown-item').each(function () {
-						const $item = jQuery(this);
-						const label_text = $item.text();
-						$item.toggleClass('d-none', (select_options.enableCaseSensitiveFiltering
-							? label_text.indexOf(search_text)
-							: label_text.toLowerCase().indexOf(search_text)) < 0);
-					});
-					$dropdown_menu.find('.' + prefix + '-dropdown-toggle').each(function () {
-						const $toggle = jQuery(this);
-						$toggle.toggleClass('d-none', $toggle.find('.' + prefix + '-dropdown-item:not(.d-none)').length < 1);
-					});
-					$searchResetBtn.prop('disabled', false);
-				}
-				else
-				{
-					$dropdown_menu.find('.' + prefix + '-dropdown-toggle, .' + prefix + '-dropdown-item').removeClass('d-none');
-					$searchResetBtn.prop('disabled', true);
-				}
-			}).prop('disabled', false);
+
 		}
 		jQuery('#' + prefix + '-reset-btn').on('click', function () {
 			this.disabled = true;
@@ -572,18 +577,18 @@ jQuery.fn.multiselect = function (options) {
 			max_height = ($dropdown.offset().top > 0)
 				? Math.max(window.innerHeight - Math.ceil($dropdown.offset().top) - 48, (size > 1) ? ((size - 1) * 32) : 320) + 'px'
 				: '20rem';
-			$dropdown_menu.css({ 'max-height': max_height });
+			$dropdownMenu.css({ 'max-height': max_height });
 		}).on('hide.bs.dropdown', () => $inputs.prop('disabled', true));
 		if ($dropdown.parents('.modal').length < 1)
 		{
 			// If drop down isn't in a modal, then detach menu and put in body
 			$dropdown.on('shown.bs.dropdown', function () {
-				if ($dropdown_menu.data('detached'))
+				if ($dropdownMenu.data('detached'))
 				{
 					return;
 				}
-				$body.append($dropdown_menu.data('detached', 1).css({
-					'max-width': $dropdown_menu.width()
+				$body.append($dropdownMenu.data('detached', 1).css({
+					'max-width': $dropdownMenu.width()
 				}).detach());
 
 				// Add MutationObserver to remove dropdown menu if dropdown goes away
@@ -593,7 +598,7 @@ jQuery.fn.multiselect = function (options) {
 						if (!document.contains($select[0]))
 						{
 							observer.disconnect();
-							$dropdown_menu.remove();
+							$dropdownMenu.remove();
 							$dropdown.remove();
 						}
 					});
