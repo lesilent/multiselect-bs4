@@ -50,6 +50,7 @@ function updateSelect($select)
 			const $optgroup = jQuery(this);
 			const $options = $optgroup.children('option');
 			const $optinput = jQuery('#' + prefix + '-dropdown-optgroup-' + itype + '-' + i);
+			const collapse_id = prefix + '-dropdown-collapse-' + i;
 			let optchecked = null;
 			jQuery('#' + prefix + '-dropdown-toggle-' + i).toggleClass('border-top border-bottom', !hidden).children('.dropdown-item-text').prop('hidden', hidden);
 			$options.each(function () {
@@ -86,6 +87,11 @@ function updateSelect($select)
 				i++;
 			});
 			$optinput.prop('checked', optchecked === true).prop('disabled', disabled);
+			if (optchecked && !multiple)
+			{
+				// Expand optgroup if at least option is selected
+				jQuery('#' + collapse_id).collapse('show');
+			}
 		}
 		else
 		{
@@ -328,7 +334,7 @@ jQuery.fn.multiselect = function (options) {
 					+ htmlEncode(this.label) + '</label>'
 					+ ((select_options.enableCollapsibleOptGroups && options_length > 0) ? '<a class="collapse-toggle d-inline-block text-body w-100" href="javascript:void(0)" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="' + collapse_id + '"><i class="caret"></i></a>' : '')
 					+ '</div>'
-					+ '<div id="' + collapse_id + '" class="collapse' + ((select_options.enableCollapsibleOptGroups && (select_options.collapseOptGroupsByDefault || $optgroup.data('collapsed'))) ? '' : ' show') + '">';
+					+ '<div id="' + collapse_id + '" class="collapse' + ((select_options.enableCollapsibleOptGroups && ($optgroup.data('collapsed') || (select_options.collapseOptGroupsByDefault && $options.filter(':selected').length == 0))) ? '' : ' show') + '">';
 				/*
 				if (select_options.enableCollapsibleOptGroups && options_length > 0)
 				{
