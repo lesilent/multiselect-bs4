@@ -495,11 +495,18 @@ jQuery.fn.multiselect = function (options) {
 			}).val(select_options.selectAllValue).prop('disabled', false);
 			$dropdown.find('#' + prefix + '-dropdown-checkbox-all-label').text(select_options.selectAllText);
 			submit_func = function () {
-				const empty = ($select.find('option:selected').length < 1);
-				$dropdownBtn.toggleClass('border-danger', empty);
-				if (empty)
+				if ($select.prop('required') && $select.parents('fieldset[disabled]').length < 1)
 				{
-					return false;
+					const empty = ($select.find('option:selected').length < 1);
+					if (empty)
+					{
+						$dropdownBtn.addClass('border-danger');
+						return false;
+					}
+					else
+					{
+						$dropdownBtn.removeClass('border-danger');
+					}
 				}
 			};
 		}
@@ -549,11 +556,18 @@ jQuery.fn.multiselect = function (options) {
 				}
 			});
 			submit_func = function () {
-				const empty = ($select.val().length < 1);
-				$dropdownBtn.toggleClass('border-danger', empty);
-				if (empty)
+				if ($select.prop('required') && $select.parents('fieldset[disabled]').length < 1)
 				{
-					return false;
+					const empty = ($select.val().length < 1);
+					if (empty)
+					{
+						$dropdownBtn.addClass('border-danger');
+						return false;
+					}
+					else
+					{
+						$dropdownBtn.removeClass('border-danger');
+					}
 				}
 			};
 		}
